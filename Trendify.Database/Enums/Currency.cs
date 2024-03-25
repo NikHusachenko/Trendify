@@ -1,4 +1,4 @@
-﻿namespace Trendify.Database.Models;
+﻿namespace Trendify.Database.Enums;
 
 public enum Currency
 {

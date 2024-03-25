@@ -1,4 +1,4 @@
-﻿using Trendify.Database.Models;
+﻿using Trendify.Database.Enums;
 
 namespace Trendify.Database.Entities;
 

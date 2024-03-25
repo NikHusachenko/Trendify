@@ -1,8 +1,10 @@
-﻿namespace Trendify.Database.Entities;
+﻿using Trendify.Database.Enums;
+
+namespace Trendify.Database.Entities;
 
 public sealed record ProductImageEntity : BaseEntity
 {
-    public string Extension { get; set; } = string.Empty;
+    public ImageFormat Extension { get; set; }
 
     public Guid ProductId { get; set; }
     public ProductEntity Product { get; set; }

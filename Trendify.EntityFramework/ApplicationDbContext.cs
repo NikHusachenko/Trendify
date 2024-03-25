@@ -28,5 +28,7 @@ public sealed class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new ProductCategoriesConfiguration());
         modelBuilder.ApplyConfiguration(new ProductConfiguration());
         modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
+        modelBuilder.ApplyConfiguration(new GalleryImageConfiguration());
+        modelBuilder.ApplyConfiguration(new FaqConfiguration());
     }
 }
