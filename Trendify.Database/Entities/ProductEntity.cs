@@ -12,10 +12,8 @@ public sealed record ProductEntity : BaseEntity
     public float Price { get; set; }
     public Currency Currency { get; set; }
 
-    public Guid? CartId { get; set; }
-    public CartEntity Cart { get; set; }
-
     public List<ProductImageEntity> Images { get; set; } = new List<ProductImageEntity>();
     public List<CartProductsEntity> Carts { get; set; } = new List<CartProductsEntity>();
     public List<ProductCategoriesEntity> Categories { get; set; } = new List<ProductCategoriesEntity>();
+    public List<CommentEntity> Comments { get; set; } = new List<CommentEntity>();
 }

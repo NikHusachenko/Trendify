@@ -4,7 +4,7 @@ using Trendify.Database.Entities;
 
 namespace Trendify.EntityFramework.Configurations;
 
-public sealed class UserRolesConfiguration : IEntityTypeConfiguration<UserRolesEntity>
+internal sealed class UserRolesConfiguration : IEntityTypeConfiguration<UserRolesEntity>
 {
     public void Configure(EntityTypeBuilder<UserRolesEntity> builder)
     {

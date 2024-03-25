@@ -15,4 +15,5 @@ public sealed record UserEntity : BaseEntity
     public List<UserRolesEntity> Roles { get; set; } = new List<UserRolesEntity>();
     public List<ActionEntity> Actions { get; set; } = new List<ActionEntity>();
     public List<CommentEntity> Comments { get; set; } = new List<CommentEntity>();
+    public List<CartEntity> Carts { get; set; } = new List<CartEntity>();
 }
