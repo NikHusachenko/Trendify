@@ -12,8 +12,8 @@ using Trendify.EntityFramework;
 namespace Trendify.EntityFramework.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240325084337_AddedGalleryAndFaq")]
-    partial class AddedGalleryAndFaq
+    [Migration("20240326211645_InitCreate")]
+    partial class InitCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
