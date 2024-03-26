@@ -3,13 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.Web", "Trendify.Web\Trendify.Web.csproj", "{302320BE-265F-43AB-A67D-6A74F9B96ABB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shop", "Shop", "{F94F3050-D7DA-4FCB-A03B-B640E5C4881E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.Database", "Trendify.Database\Trendify.Database.csproj", "{82706CD4-EF79-4223-955D-DEE69EB4927B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify.Web", "Shop\Trendify.Web\Trendify.Web.csproj", "{07109977-22FF-4273-B42B-3DBE0BB35C9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.EntityFramework", "Trendify.EntityFramework\Trendify.EntityFramework.csproj", "{C7548234-692B-4590-8004-E5D77662A723}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify.Services", "Shop\Trendify.Services\Trendify.Services.csproj", "{69DA4CDB-0842-475C-BF99-E8CA938B8637}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.Services", "Trendify.Services\Trendify.Services.csproj", "{FC8E19A0-5460-4ECD-B788-1C2C32287D89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify.EntityFramework", "Shop\Trendify.EntityFramework\Trendify.EntityFramework.csproj", "{67D08EF7-FCCA-4FBC-A4A1-0DB0AFDDD0D3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify.Database", "Shop\Trendify.Database\Trendify.Database.csproj", "{8F78C600-8935-46AD-B5C3-E1E15D7176D3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System", "System", "{6F6AC9B1-CEE5-4507-9D01-32B67B155134}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.Web", "System\Trendify.Web\Trendify.Web.csproj", "{B86F7C5A-B44C-4387-8B8A-3D548A2BE879}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.Database", "Trendify.Database\Trendify.Database.csproj", "{EFF97EE3-F97A-4FFE-89E9-1C230755DCF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.EntityFramework", "Trendify.EntityFramework\Trendify.EntityFramework.csproj", "{D4727753-9EBA-4B70-841D-7B4AD024C43D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.Services", "Trendify.Services\Trendify.Services.csproj", "{263F81B8-3C30-4AC2-8CBC-36BE6EA5209B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,25 +29,51 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{302320BE-265F-43AB-A67D-6A74F9B96ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{302320BE-265F-43AB-A67D-6A74F9B96ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{302320BE-265F-43AB-A67D-6A74F9B96ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{302320BE-265F-43AB-A67D-6A74F9B96ABB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{82706CD4-EF79-4223-955D-DEE69EB4927B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{82706CD4-EF79-4223-955D-DEE69EB4927B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{82706CD4-EF79-4223-955D-DEE69EB4927B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{82706CD4-EF79-4223-955D-DEE69EB4927B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C7548234-692B-4590-8004-E5D77662A723}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C7548234-692B-4590-8004-E5D77662A723}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C7548234-692B-4590-8004-E5D77662A723}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C7548234-692B-4590-8004-E5D77662A723}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC8E19A0-5460-4ECD-B788-1C2C32287D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC8E19A0-5460-4ECD-B788-1C2C32287D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC8E19A0-5460-4ECD-B788-1C2C32287D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC8E19A0-5460-4ECD-B788-1C2C32287D89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07109977-22FF-4273-B42B-3DBE0BB35C9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07109977-22FF-4273-B42B-3DBE0BB35C9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07109977-22FF-4273-B42B-3DBE0BB35C9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07109977-22FF-4273-B42B-3DBE0BB35C9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69DA4CDB-0842-475C-BF99-E8CA938B8637}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69DA4CDB-0842-475C-BF99-E8CA938B8637}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69DA4CDB-0842-475C-BF99-E8CA938B8637}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69DA4CDB-0842-475C-BF99-E8CA938B8637}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67D08EF7-FCCA-4FBC-A4A1-0DB0AFDDD0D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67D08EF7-FCCA-4FBC-A4A1-0DB0AFDDD0D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67D08EF7-FCCA-4FBC-A4A1-0DB0AFDDD0D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67D08EF7-FCCA-4FBC-A4A1-0DB0AFDDD0D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F78C600-8935-46AD-B5C3-E1E15D7176D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F78C600-8935-46AD-B5C3-E1E15D7176D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F78C600-8935-46AD-B5C3-E1E15D7176D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F78C600-8935-46AD-B5C3-E1E15D7176D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B86F7C5A-B44C-4387-8B8A-3D548A2BE879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B86F7C5A-B44C-4387-8B8A-3D548A2BE879}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B86F7C5A-B44C-4387-8B8A-3D548A2BE879}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B86F7C5A-B44C-4387-8B8A-3D548A2BE879}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EFF97EE3-F97A-4FFE-89E9-1C230755DCF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFF97EE3-F97A-4FFE-89E9-1C230755DCF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFF97EE3-F97A-4FFE-89E9-1C230755DCF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFF97EE3-F97A-4FFE-89E9-1C230755DCF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4727753-9EBA-4B70-841D-7B4AD024C43D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4727753-9EBA-4B70-841D-7B4AD024C43D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4727753-9EBA-4B70-841D-7B4AD024C43D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4727753-9EBA-4B70-841D-7B4AD024C43D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{263F81B8-3C30-4AC2-8CBC-36BE6EA5209B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{263F81B8-3C30-4AC2-8CBC-36BE6EA5209B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{263F81B8-3C30-4AC2-8CBC-36BE6EA5209B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{263F81B8-3C30-4AC2-8CBC-36BE6EA5209B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{07109977-22FF-4273-B42B-3DBE0BB35C9D} = {F94F3050-D7DA-4FCB-A03B-B640E5C4881E}
+		{69DA4CDB-0842-475C-BF99-E8CA938B8637} = {F94F3050-D7DA-4FCB-A03B-B640E5C4881E}
+		{67D08EF7-FCCA-4FBC-A4A1-0DB0AFDDD0D3} = {F94F3050-D7DA-4FCB-A03B-B640E5C4881E}
+		{8F78C600-8935-46AD-B5C3-E1E15D7176D3} = {F94F3050-D7DA-4FCB-A03B-B640E5C4881E}
+		{B86F7C5A-B44C-4387-8B8A-3D548A2BE879} = {6F6AC9B1-CEE5-4507-9D01-32B67B155134}
+		{EFF97EE3-F97A-4FFE-89E9-1C230755DCF2} = {6F6AC9B1-CEE5-4507-9D01-32B67B155134}
+		{D4727753-9EBA-4B70-841D-7B4AD024C43D} = {6F6AC9B1-CEE5-4507-9D01-32B67B155134}
+		{263F81B8-3C30-4AC2-8CBC-36BE6EA5209B} = {6F6AC9B1-CEE5-4507-9D01-32B67B155134}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6F7FB406-C178-4767-BF5F-81494E679A2B}
