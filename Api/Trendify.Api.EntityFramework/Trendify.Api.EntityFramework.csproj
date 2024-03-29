@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Trendify.EntityFramework\Trendify.EntityFramework.csproj" />
+    <ProjectReference Include="..\Trendify.Api.Database\Trendify.Api.Database.csproj" />
   </ItemGroup>
 
 </Project>
