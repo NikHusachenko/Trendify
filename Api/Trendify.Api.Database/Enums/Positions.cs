@@ -12,7 +12,7 @@ namespace Trendify.Api.Database.Enums
         Sewing_Worker = 6,
         Warehouse_Worker = 7,
         Suply_Worker = 8,
-        Admiistration_Worker =9,
+        Admiistration_Worker = 9,
         Marketing_worker = 10,
         Accounting_Worker = 11,
     }

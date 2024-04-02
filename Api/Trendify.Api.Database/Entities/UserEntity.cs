@@ -16,7 +16,7 @@ public sealed record UserEntity : BaseEntity
 
     //Lists
 
-    public List<PositionsEntity> Roles { get; set; } = new List<PositionsEntity>();
+    public List<PositionsEntity> Positions { get; set; } = new List<PositionsEntity>();
 
     //Foreig keys
 

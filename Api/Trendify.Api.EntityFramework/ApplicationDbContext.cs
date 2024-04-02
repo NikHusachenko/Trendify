@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Trendify.Api.Database.Entities;
+using Trendify.EntityFramework.Configurations;
 
-namespace Trendify.EntityFramework;
+namespace Trendify.Api.EntityFramework;
 
 public sealed class ApplicationDbContext : DbContext
 {

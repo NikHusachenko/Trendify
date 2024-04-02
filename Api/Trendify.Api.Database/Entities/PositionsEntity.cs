@@ -7,12 +7,12 @@ public sealed record PositionsEntity : BaseEntity
     //Data
 
     public string Position { get; set; } = string.Empty;
-
   
     //Foreig keys
 
     public Guid UserId { get; set; }
 
-
+    //Entities
+    public UserEntity User { get; set; }
 
 }
