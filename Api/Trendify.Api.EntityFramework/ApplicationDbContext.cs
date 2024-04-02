@@ -6,7 +6,6 @@ namespace Trendify.EntityFramework;
 public sealed class ApplicationDbContext : DbContext
 {
     public DbSet<UserEntity> Users { get; set; }
-    public DbSet<UserRolesEntity> UserRoles { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {

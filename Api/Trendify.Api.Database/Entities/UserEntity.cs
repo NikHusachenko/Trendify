@@ -12,5 +12,18 @@ public sealed record UserEntity : BaseEntity
     public string Login { get; set; } = string.Empty;
     public string HashedPassword { get; set; } = string.Empty;
 
-    public List<UserRolesEntity> Roles { get; set; } = new List<UserRolesEntity>();
+    //Data
+
+    public List<PositionsEntity> Roles { get; set; } = new List<PositionsEntity>();
+
+    //Lists
+
+    public Guid OfficeId { get; set; }
+    public Guid PreparatoryWorkshopId { get; set; }
+    public Guid CuttingWorkshopId { get; set; }
+    public Guid ExperimentalWorkshopId { get; set; }
+    public Guid SewingWorkshopId { get; set; }
+    public Guid WarehouseId { get; set; }
+
+    //Foreig keys
 }
