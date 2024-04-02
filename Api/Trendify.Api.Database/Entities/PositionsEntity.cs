@@ -4,12 +4,15 @@ namespace Trendify.Api.Database.Entities;
 
 public sealed record PositionsEntity : BaseEntity
 {
+    //Data
+
     public string Position { get; set; } = string.Empty;
 
-    //Data
+  
+    //Foreig keys
 
     public Guid UserId { get; set; }
 
 
-    //Foreig keys
+
 }

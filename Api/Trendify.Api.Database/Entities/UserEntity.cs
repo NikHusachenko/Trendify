@@ -4,6 +4,8 @@ namespace Trendify.Api.Database.Entities;
 
 public sealed record UserEntity : BaseEntity
 {
+    //Data
+
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string MiddleName { get; set; } = string.Empty;
@@ -12,11 +14,11 @@ public sealed record UserEntity : BaseEntity
     public string Login { get; set; } = string.Empty;
     public string HashedPassword { get; set; } = string.Empty;
 
-    //Data
+    //Lists
 
     public List<PositionsEntity> Roles { get; set; } = new List<PositionsEntity>();
 
-    //Lists
+    //Foreig keys
 
     public Guid OfficeId { get; set; }
     public Guid PreparatoryWorkshopId { get; set; }
@@ -25,5 +27,4 @@ public sealed record UserEntity : BaseEntity
     public Guid SewingWorkshopId { get; set; }
     public Guid WarehouseId { get; set; }
 
-    //Foreig keys
 }

@@ -4,9 +4,10 @@ namespace Trendify.Api.Database.Entities;
 
 public sealed record TypesEntity : BaseEntity
 {
+    //Data
     public int Type { get; set; }
 
-    //Data
 
+    //Foreig keys
     public Guid OfficeId { get; set; }
 }
