@@ -1,7 +1,7 @@
-﻿using Trendify.Api.Database.Entities;
+﻿
 
-namespace Trendify.Api.Database.Entities
-{
+namespace Trendify.Api.Database.Entities;
+
     public abstract record BaseEntity
     {
         public Guid Id { get; set; }
@@ -9,5 +9,4 @@ namespace Trendify.Api.Database.Entities
         public DateTimeOffset UpdatedAt { get; set; }
         public DateTimeOffset? DeletedAt { get; set; }
     }
-}
-}
+
