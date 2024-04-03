@@ -1,18 +1,14 @@
 ﻿using Trendify.Api.Database.Entities;
-
+using Trendify.Api.Database.Enums;
 namespace Trendify.Api.Database.Entities;
 
-public sealed record PositionsEntity : BaseEntity
+public sealed record PositionEntity : BaseEntity
 {
-    //Data
-
     public string Position { get; set; } = string.Empty;
   
-    //Foreig keys
 
     public Guid UserId { get; set; }
 
-    //Entities
     public UserEntity User { get; set; }
 
 }

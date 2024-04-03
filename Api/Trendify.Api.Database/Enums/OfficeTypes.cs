@@ -1,7 +1,7 @@
 ﻿
 namespace Trendify.Api.Database.Enums
 {
-    public enum Types
+    public enum OfficeTypes
     {
         Other = 0,
         Supply = 1,

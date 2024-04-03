@@ -1,11 +1,9 @@
 ﻿using Trendify.Api.Database.Entities;
-
+using Trendify.Api.Database.Enums;
 namespace Trendify.Api.Database.Entities;
 
 public sealed record UserEntity : BaseEntity
 {
-    //Data
-
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string MiddleName { get; set; } = string.Empty;
@@ -14,10 +12,9 @@ public sealed record UserEntity : BaseEntity
     public string Login { get; set; } = string.Empty;
     public string HashedPassword { get; set; } = string.Empty;
 
-    //Lists
-    public List<PositionsEntity> Positions { get; set; } = new List<PositionsEntity>();
 
-    //Foreig keys
+    public List<PositionEntity> Positions { get; set; } = new List<PositionEntity>();
+
 
     public Guid OfficeId { get; set; }
     public Guid PreparatoryWorkshopId { get; set; }

@@ -2,8 +2,8 @@
 
 namespace Trendify.Api.Database.Entities;
 
-public sealed record RollsEntity : BaseEntity
-{    //Data
+public sealed record RollEntity : BaseEntity
+{
 
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
@@ -11,7 +11,6 @@ public sealed record RollsEntity : BaseEntity
     public string Color { get; set; } = string.Empty;
     public int RAL { get; set; }
 
-    //Foreing keys
 
     public Guid PreparatoryWorkshopId { get; set; }
 

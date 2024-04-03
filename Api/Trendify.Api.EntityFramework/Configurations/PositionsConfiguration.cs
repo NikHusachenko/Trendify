@@ -4,9 +4,9 @@ using Trendify.Api.Database.Entities;
 
 namespace Trendify.EntityFramework.Configurations;
 
-internal sealed class PositionsConfiguration : IEntityTypeConfiguration<PositionsEntity>
+internal sealed class PositionsConfiguration : IEntityTypeConfiguration<PositionEntity>
 {
-    public void Configure(EntityTypeBuilder<PositionsEntity> builder)
+    public void Configure(EntityTypeBuilder<PositionEntity> builder)
     {
         builder.ToTable("Positions").HasKey(position => position.Id);
 
