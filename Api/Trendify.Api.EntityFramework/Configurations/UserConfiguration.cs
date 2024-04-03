@@ -18,5 +18,34 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<UserEntity>
         builder.Property(user => user.Login).IsRequired(true).HasMaxLength(63);
         builder.Property(user => user.HashedPassword).IsRequired(true);
 
+        builder
+        .HasOne<OfficeEntity>(user => user.Office)
+        .WithMany(office => office.Workers)
+        .HasForeignKey(user => user.OfficeId);
+
+        builder
+        .HasOne<ExperimentalWorkshopEntity>(user => user.ExperimentalWorkshop)
+        .WithMany(exp => exp.Workers)
+        .HasForeignKey(user => user.ExperimentalWorkshopId);
+
+                builder
+        .HasOne<PreparatoryWorkshopEntity>(user => user.PreparatoryWorkshop)
+        .WithMany(exp => exp.Workers)
+        .HasForeignKey(user => user.PreparatoryWorkshopId);
+
+                builder
+        .HasOne<CuttingWorkshopEntity>(user => user.CuttingWorkshop)
+        .WithMany(exp => exp.Workers)
+        .HasForeignKey(user => user.CuttingWorkshopId);
+
+                builder
+        .HasOne<SewingWorkshopEntity>(user => user.SewingWorkshop)
+        .WithMany(exp => exp.Workers)
+        .HasForeignKey(user => user.SewingWorkshopId);
+
+                builder
+        .HasOne<WarehouseEntity>(user => user.Warehouse)
+        .WithMany(exp => exp.Workers)
+        .HasForeignKey(user => user.WarehouseId);
     }
 }

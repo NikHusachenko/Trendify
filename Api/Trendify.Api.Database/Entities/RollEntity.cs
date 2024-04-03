@@ -14,5 +14,5 @@ public sealed record RollEntity : BaseEntity
 
     public Guid PreparatoryWorkshopId { get; set; }
 
-
+    public PreparatoryWorkshopEntity PreparatoryWorkshop { get; set; }
 }

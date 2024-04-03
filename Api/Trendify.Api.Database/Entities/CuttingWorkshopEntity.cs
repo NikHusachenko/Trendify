@@ -8,7 +8,7 @@ public sealed record CuttingWorkshopEntity : BaseEntity
     public string Address { get; set; } = string.Empty;
 
 
-    public List<CuttingsEntity> Cutting { get; set; } = new List<CuttingsEntity>();
+    public List<CuttingsEntity> Cuttings { get; set; } = new List<CuttingsEntity>();
     public List<UserEntity> Workers { get; set; } = new List<UserEntity>();
 
 

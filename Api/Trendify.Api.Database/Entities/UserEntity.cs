@@ -23,4 +23,12 @@ public sealed record UserEntity : BaseEntity
     public Guid SewingWorkshopId { get; set; }
     public Guid WarehouseId { get; set; }
 
+    public OfficeEntity Office { get; set; }
+    public ExperimentalWorkshopEntity ExperimentalWorkshop { get; set; }
+    public PreparatoryWorkshopEntity PreparatoryWorkshop { get; set; }
+    public CuttingWorkshopEntity CuttingWorkshop { get; set; }
+    public SewingWorkshopEntity SewingWorkshop { get; set; }
+    public WarehouseEntity Warehouse { get; set; }
+
+
 }

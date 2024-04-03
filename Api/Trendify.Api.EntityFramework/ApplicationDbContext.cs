@@ -17,6 +17,16 @@ public sealed class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.ApplyConfiguration(new CuttingConfiguration());
+        modelBuilder.ApplyConfiguration(new CuttingWorkshopConfiguration());
+        modelBuilder.ApplyConfiguration(new ExperimentalWorkshopConfiguration());
+        modelBuilder.ApplyConfiguration(new OfficeConfiguration());
+        modelBuilder.ApplyConfiguration(new PositionConfiguration());
+        modelBuilder.ApplyConfiguration(new PreparatoryWorkshopConfiguration());
+        modelBuilder.ApplyConfiguration(new ProductConfiguration());
+        modelBuilder.ApplyConfiguration(new RollCofiguration());
+        modelBuilder.ApplyConfiguration(new SewingWorkshopConfiguration());
         modelBuilder.ApplyConfiguration(new UserConfiguration());
+        modelBuilder.ApplyConfiguration(new WarehouseConfiguration());
     }
 }
