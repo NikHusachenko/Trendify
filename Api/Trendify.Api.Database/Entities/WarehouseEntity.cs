@@ -10,7 +10,6 @@ public sealed record WarehouseEntity : BaseEntity
 
 
     public List<ProductEntity> Products { get; set; } = new List<ProductEntity>();
-
     public List<UserEntity> Workers { get; set; } = new List<UserEntity>();
 
 }
