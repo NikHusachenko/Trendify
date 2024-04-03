@@ -13,6 +13,5 @@ public sealed record CuttingsEntity : BaseEntity
     public CuttingTypes CuttingType { get; set; }
 
     public Guid CuttingWorkshopId { get; set; }
-
     public CuttingWorkshopEntity CuttingWorkshop { get; set; }
 }

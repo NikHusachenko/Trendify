@@ -17,9 +17,8 @@ internal sealed class CuttingConfiguration : IEntityTypeConfiguration<CuttingsEn
         builder.Property(cut => cut.RAL).IsRequired(true);
         builder.Property(cut => cut.CuttingType).IsRequired(true).HasConversion<int>();
 
-        builder
-        .HasOne<CuttingWorkshopEntity>(cut => cut.CuttingWorkshop)
-        .WithMany(cw => cw.Cuttings)
-        .HasForeignKey(cut => cut.CuttingWorkshop);
+        builder.HasOne<CuttingWorkshopEntity>(cut => cut.CuttingWorkshop)
+            .WithMany(cw => cw.Cuttings)
+            .HasForeignKey(cut => cut.CuttingWorkshopId);
     }
 }

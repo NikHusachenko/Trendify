@@ -10,7 +10,6 @@ internal sealed class OfficeConfiguration : IEntityTypeConfiguration<OfficeEntit
     {
         builder.ToTable("Offices").HasKey(office => office.Id);
 
-        builder.Property(office => office.Address).IsRequired(true).HasMaxLength(63);
         builder.Property(office => office.OfficeType).IsRequired(true).HasConversion<int>();
     }
 }
