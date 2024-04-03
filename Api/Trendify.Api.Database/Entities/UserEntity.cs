@@ -15,7 +15,6 @@ public sealed record UserEntity : BaseEntity
     public string HashedPassword { get; set; } = string.Empty;
 
     //Lists
-
     public List<PositionsEntity> Positions { get; set; } = new List<PositionsEntity>();
 
     //Foreig keys

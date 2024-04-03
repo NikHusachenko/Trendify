@@ -13,8 +13,8 @@ internal sealed class PositionsConfiguration : IEntityTypeConfiguration<Position
         builder.Property(position => position.Position).IsRequired(true).HasMaxLength(63);
 
         builder
-        .HasOne<PositionsEntity>(position => position.User)
-        .WithMany(user => user.Position)
+        .HasOne<UserEntity>(position => position.User)
+        .WithMany(user => user.Positions)
         .HasForeignKey(position => position.UserId);
     }
 }
