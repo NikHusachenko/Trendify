@@ -6,7 +6,7 @@ public sealed record WarehouseEntity : BaseEntity
 {
 
     public States State { get; set; }
-    public string Address { get; set; } = string.Empty;
+    public AddressEntity Address { get; set; }
 
 
     public List<ProductEntity> Products { get; set; } = new List<ProductEntity>();

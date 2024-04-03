@@ -4,7 +4,7 @@ using Trendify.Api.Database.Entities;
 
 namespace Trendify.EntityFramework.Configurations;
 
-internal sealed class PositionsConfiguration : IEntityTypeConfiguration<PositionEntity>
+internal sealed class PositionConfiguration : IEntityTypeConfiguration<PositionEntity>
 {
     public void Configure(EntityTypeBuilder<PositionEntity> builder)
     {

@@ -28,6 +28,6 @@ public sealed class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new SewingWorkshopConfiguration());
         modelBuilder.ApplyConfiguration(new UserConfiguration());
         modelBuilder.ApplyConfiguration(new WarehouseConfiguration());
-
+        modelBuilder.ApplyConfiguration(new AddressConfiguration());
     }
 }

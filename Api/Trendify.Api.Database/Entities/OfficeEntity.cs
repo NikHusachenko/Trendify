@@ -4,7 +4,7 @@ namespace Trendify.Api.Database.Entities;
 
 public sealed record OfficeEntity : BaseEntity
 {
-    public string Address { get; set; } = string.Empty;
+    public AddressEntity Address { get; set; }
     public OfficeTypes OfficeType { get; set; }
 
 

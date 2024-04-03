@@ -5,7 +5,7 @@ namespace Trendify.Api.Database.Entities;
 public sealed record SewingWorkshopEntity : BaseEntity
 {
 
-    public string Address { get; set; } = string.Empty;
+    public AddressEntity Address { get; set; }
     public States State { get; set; }
 
 
