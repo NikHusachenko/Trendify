@@ -6,10 +6,10 @@ namespace Trendify.Api.Database.Enums
         Other = 0,
         Stopped = 1,
         Working = 2,
-        On_Hold = 3,
-        Insufitient_materials = 4,
+        OnHold = 3,
+        InsufficientMaterials = 4,
         Destroyed = 5,
         Damaged = 6,
-        Power_Out = 7,
+        PowerOut = 7,
     }
 }
