@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Trendify.Api.EntityFramework;
+using Trendify.Api.EntityFramework.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -12,6 +13,7 @@ services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
 });
+services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 var app = builder.Build();
 
