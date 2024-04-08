@@ -18,8 +18,8 @@ html {
 }
 
 body {
+    background: linear-gradient(#9B182E, #5C101D);
     margin-bottom: 60px;
-    background-color: #9B182E;
 }
 
 h1{
@@ -56,7 +56,7 @@ a{
 .navbar{
     position: fixed;
     width: 100%;
-    min-height: 7vh;
+    min-height: 7vh;    
 }
 
 .hero_img {
