@@ -1,10 +1,10 @@
 html {
-  font-Font-size: 14px;
+    Font-size: 14px;
 }
 
 @media (min-width: 768px) {
   html {
-    font-Font-size: 16px;
+   Font-size: 16px;
   }
 }
 
@@ -18,7 +18,8 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #9B182E;
 }
 
 h1{
@@ -43,13 +44,26 @@ h3{
 body{
     Font-family: Roboto;
     Font-weight: normal;
-    Font-size: 16px;
 }
 
 a{
     : Roboto;
     font-weight: normal;
-    Font-size: 12px;
     text-decoration: none;
     color: initial;
+}
+
+.navbar{
+    position: fixed;
+    width: 100%;
+    min-height: 7vh;
+}
+
+.hero_img {
+    color: white;
+    padding-top: 15vh;
+}
+
+.hero_addon {
+    color: white;
 }
