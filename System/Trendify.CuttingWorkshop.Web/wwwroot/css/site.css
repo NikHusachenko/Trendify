@@ -1,10 +1,10 @@
 html {
-  font-size: 14px;
+  font-Font-size: 14px;
 }
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-Font-size: 16px;
   }
 }
 
@@ -19,4 +19,37 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+h1{
+    Font-family: Roboto;
+    Font-weight: Bold;
+    Font-size: 56px;
+    Line Height: 60px;
+}
+
+h2{
+    Font-family: Roboto;
+    Font-weight: Bold;
+    Font-size: 36px;
+}
+
+h3{
+    Font-family: Roboto;
+    Font-weight: normal;
+    Font-size: 20px;
+}
+
+body{
+    Font-family: Roboto;
+    Font-weight: normal;
+    Font-size: 16px;
+}
+
+a{
+    : Roboto;
+    font-weight: normal;
+    Font-size: 12px;
+    text-decoration: none;
+    color: initial;
 }
