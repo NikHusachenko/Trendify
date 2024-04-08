@@ -67,3 +67,12 @@ a{
 .hero_addon {
     color: white;
 }
+
+.card-body{
+    background-color: white;
+    margin: 0 auto;
+}
+
+.material-symbols-outlined {
+    font-size: 40px !important;
+}
