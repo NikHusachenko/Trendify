@@ -87,11 +87,18 @@ a{
         font-size: 0.5rem;
     }
 }
+
 footer{
     background-color: white;
 }
 .footerText{
     text-align: center;
     font-size: 24px;
-    font-color: black;
+    color: black;
+}
+
+@media screen and (max-width: 900px) {
+    .material-symbols-outlined {
+        font-size: 2rem !important;
+    }
 }
