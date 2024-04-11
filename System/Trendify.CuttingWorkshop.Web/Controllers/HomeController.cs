@@ -23,6 +23,11 @@ namespace Trendify.CuttingWorkshop.Web.Controllers
             return View();
         }
 
+        public IActionResult Orders()
+        {
+            return View();
+        }
+
         public IActionResult Storage()
         {
             return View();
