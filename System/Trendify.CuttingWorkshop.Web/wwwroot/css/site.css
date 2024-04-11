@@ -87,3 +87,9 @@ a{
         font-size: 0.5rem;
     }
 }
+
+@media screen and (max-width: 900px) {
+    .material-symbols-outlined {
+        font-size: 2rem !important;
+    }
+}
