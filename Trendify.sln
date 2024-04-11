@@ -17,25 +17,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "System", "System", "{6F6AC9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{56695C2B-D112-4564-B2EE-123FA056AF3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.Api.Core", "Api\Trendify.Api.Core\Trendify.Api.Core.csproj", "{EA69BE11-4E3A-492B-83E3-B595923B98E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify.Api.Core", "Api\Trendify.Api.Core\Trendify.Api.Core.csproj", "{EA69BE11-4E3A-492B-83E3-B595923B98E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.Api.Database", "Api\Trendify.Api.Database\Trendify.Api.Database.csproj", "{9091886B-3387-4FF2-9C41-B64040E3355F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify.Api.Database", "Api\Trendify.Api.Database\Trendify.Api.Database.csproj", "{9091886B-3387-4FF2-9C41-B64040E3355F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.Api.EntityFramework", "Api\Trendify.Api.EntityFramework\Trendify.Api.EntityFramework.csproj", "{18E6F333-EB59-4085-A5E8-263A1D857FF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify.Api.EntityFramework", "Api\Trendify.Api.EntityFramework\Trendify.Api.EntityFramework.csproj", "{18E6F333-EB59-4085-A5E8-263A1D857FF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.Api.Services", "Api\Trendify.Api.Services\Trendify.Api.Services.csproj", "{0477F355-561E-4555-9AEB-AFD63B2C5253}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify.Api.Services", "Api\Trendify.Api.Services\Trendify.Api.Services.csproj", "{0477F355-561E-4555-9AEB-AFD63B2C5253}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.Api.Domain.Handler", "Api\Trendify.Api.Domain.Handler\Trendify.Api.Domain.Handler.csproj", "{29775025-7E83-4E1E-9C1D-E40CFA435972}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify.Api.Domain.Handler", "Api\Trendify.Api.Domain.Handler\Trendify.Api.Domain.Handler.csproj", "{29775025-7E83-4E1E-9C1D-E40CFA435972}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.ExperimentalWorkshop.Web", "System\Trendify.ExperimentalWorkshop.Web\Trendify.ExperimentalWorkshop.Web.csproj", "{64AD92CA-2522-453B-B5E4-96380F33A4E1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify.ExperimentalWorkshop.Web", "System\Trendify.ExperimentalWorkshop.Web\Trendify.ExperimentalWorkshop.Web.csproj", "{64AD92CA-2522-453B-B5E4-96380F33A4E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.PreparationWorkshop.Web", "System\Trendify.PreparationWorkshop.Web\Trendify.PreparationWorkshop.Web.csproj", "{AD7092C5-285E-4EE9-8DBE-16DB0F5A7AAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify.PreparationWorkshop.Web", "System\Trendify.PreparationWorkshop.Web\Trendify.PreparationWorkshop.Web.csproj", "{AD7092C5-285E-4EE9-8DBE-16DB0F5A7AAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.CuttingWorkshop.Web", "System\Trendify.CuttingWorkshop.Web\Trendify.CuttingWorkshop.Web.csproj", "{1E33D1B7-C778-4E14-9B18-88FE5A05741C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify.CuttingWorkshop.Web", "System\Trendify.CuttingWorkshop.Web\Trendify.CuttingWorkshop.Web.csproj", "{1E33D1B7-C778-4E14-9B18-88FE5A05741C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.SewingWorkshop.Web", "System\Trendify.SewingWorkshop.Web\Trendify.SewingWorkshop.Web.csproj", "{DAF20F4C-74BA-42CA-8937-97A431FAD74E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify.SewingWorkshop.Web", "System\Trendify.SewingWorkshop.Web\Trendify.SewingWorkshop.Web.csproj", "{DAF20F4C-74BA-42CA-8937-97A431FAD74E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.Warehouse.Web", "Trendify.Warehouse.Web\Trendify.Warehouse.Web.csproj", "{3276CC5C-D1E4-40BF-99A8-CB8D480B5B8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify.Warehouse.Web", "Trendify.Warehouse.Web\Trendify.Warehouse.Web.csproj", "{3276CC5C-D1E4-40BF-99A8-CB8D480B5B8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
