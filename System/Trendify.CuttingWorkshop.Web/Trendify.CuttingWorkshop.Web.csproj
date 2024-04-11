@@ -7,11 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Home\Storage.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Tools\Storage.cshtml" />
+    <None Include="Views\Home\Storage.cshtml" />
   </ItemGroup>
 
 </Project>

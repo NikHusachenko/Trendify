@@ -81,3 +81,9 @@ a{
     padding-top: 5vh;
     margin-bottom: 20vh;
 }
+
+@media screen and (max-width: 900px) {
+    table > * {
+        font-size: 0.5rem;
+    }
+}
