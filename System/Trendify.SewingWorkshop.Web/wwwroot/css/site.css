@@ -1,22 +1,105 @@
 html {
-  font-size: 14px;
+    Font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        Font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    background: linear-gradient(#9B182E, #5C101D);
+    margin-bottom: 60px;
+}
+
+h1 {
+    Font-family: Roboto;
+    Font-weight: Bold;
+    Font-size: 56px;
+    line-height: 60px;
+}
+
+h2 {
+    Font-family: Roboto;
+    Font-weight: Bold;
+    Font-size: 36px;
+}
+
+h3 {
+    Font-family: Roboto;
+    Font-weight: normal;
+    Font-size: 20px;
+}
+
+body {
+    Font-family: Roboto;
+    Font-weight: normal;
+}
+
+a {
+    font-family: Roboto;
+    font-weight: normal;
+    text-decoration: none;
+    color: initial;
+}
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    min-height: 7vh;
+}
+
+.hero_img {
+    color: white;
+    padding-top: 15vh;
+}
+
+.hero_addon {
+    color: white;
+}
+
+.card-body {
+    background-color: white;
+    margin: 0 auto;
+}
+
+.material-symbols-outlined {
+    font-size: 40px !important;
+}
+
+.hero_block {
+    padding-top: 5vh;
+    margin-bottom: 20vh;
+}
+
+@media screen and (max-width: 900px) {
+    table > * {
+        font-size: 0.5rem;
+    }
+}
+
+footer {
+    background-color: white;
+}
+
+.footerText {
+    text-align: center;
+    font-size: 24px;
+    color: black;
+}
+
+@media screen and (max-width: 900px) {
+    .material-symbols-outlined {
+        font-size: 2rem !important;
+    }
 }
