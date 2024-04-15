@@ -18,7 +18,17 @@ namespace Trendify.SewingWorkshop.Web.Controllers
             return View();
         }
 
+        public IActionResult Workers()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Storage()
         {
             return View();
         }

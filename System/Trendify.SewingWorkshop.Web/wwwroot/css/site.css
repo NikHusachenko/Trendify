@@ -26,7 +26,7 @@ h1 {
     Font-family: Roboto;
     Font-weight: Bold;
     Font-size: 56px;
-    line-height: 60px;
+    Line Height: 60px;
 }
 
 h2 {
@@ -47,7 +47,7 @@ body {
 }
 
 a {
-    font-family: Roboto;
+    : Roboto;
     font-weight: normal;
     text-decoration: none;
     color: initial;
