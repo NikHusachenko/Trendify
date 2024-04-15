@@ -36,6 +36,10 @@ namespace Trendify.CuttingWorkshop.Web.Controllers
         {
             return View();
         }
+        public IActionResult DeleteOrder()
+        {
+            return View();
+        }
 
         public IActionResult Workers()
         {
