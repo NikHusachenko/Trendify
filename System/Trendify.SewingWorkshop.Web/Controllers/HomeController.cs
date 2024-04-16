@@ -12,13 +12,27 @@ namespace Trendify.SewingWorkshop.Web.Controllers
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             return View();
         }
-
+        public IActionResult Storage()
+        {
+            return View();
+        }
+        public IActionResult Orders()
+        {
+            return View();
+        }
+        public IActionResult Workers()
+        {
+            return View();
+        }
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult ManageOrder()
         {
             return View();
         }

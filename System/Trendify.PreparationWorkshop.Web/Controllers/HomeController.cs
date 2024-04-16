@@ -23,6 +23,24 @@ namespace Trendify.PreparationWorkshop.Web.Controllers
             return View();
         }
 
+        public IActionResult Orders()
+        {
+            return View();
+        }
+
+        public IActionResult Storage()
+        {
+            return View();
+        }
+        public IActionResult ManageOrder()
+        {
+            return View();
+        }
+        public IActionResult Workers()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
