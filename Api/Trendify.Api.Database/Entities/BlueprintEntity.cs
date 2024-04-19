@@ -9,6 +9,7 @@ public sealed record BlueprintEntity : BaseEntity
     public string Description { get; set; }
     public string BlueprintURL { get; set; }
 
-    public List<ProductEntity> Products { get; set; } = new List<ProductEntity>();
+    public Guid? ProductId { get; set; }
+    public ProductEntity Product { get; set; }
     public List<MaterialEntity> Materials { get; set; } = new List<MaterialEntity>();
 }

@@ -26,5 +26,6 @@ public sealed class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new SupplyConfiguration());
         modelBuilder.ApplyConfiguration(new UserConfiguration());
         modelBuilder.ApplyConfiguration(new WorkshopConfiguration());
+        modelBuilder.ApplyConfiguration(new BlueprintConfiguration());
     }
 }

@@ -13,5 +13,6 @@ internal sealed class ProductConfiguration : IEntityTypeConfiguration<ProductEnt
         builder.HasOne<WorkshopEntity>(product => product.Workshop)
             .WithMany(workshop => workshop.Products)
             .HasForeignKey(product => product.WorkshopId);
+
     }
 }
