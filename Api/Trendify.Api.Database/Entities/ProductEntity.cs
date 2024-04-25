@@ -13,6 +13,7 @@ public sealed record ProductEntity : BaseEntity
     public float Rate { get; set; }
     public int Bought { get; set; }
 
+    public BlueprintEntity Blueprint { get; set; }
     public Guid WorkshopId { get; set; }
     public WorkshopEntity Workshop { get; set; }
 

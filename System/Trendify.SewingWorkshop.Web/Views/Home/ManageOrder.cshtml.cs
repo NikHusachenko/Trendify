@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Trendify.CuttingWorkshop.Web.Views.Home
+namespace Trendify.SewingWorkshop.Web.Views.Home
 {
     public class AtOrderModel : PageModel
     {
