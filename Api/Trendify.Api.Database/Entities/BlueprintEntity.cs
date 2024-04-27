@@ -5,11 +5,9 @@ namespace Trendify.Api.Database.Entities;
 public sealed record BlueprintEntity : BaseEntity
 {
     public Guid Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public string BlueprintURL { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string BlueprintURL { get; set; } = string.Empty;
 
-    public Guid? ProductId { get; set; }
-    public ProductEntity Product { get; set; }
-    public List<MaterialEntity> Materials { get; set; } = new List<MaterialEntity>();
+    public List<MaterialBlueprintsEntity> Materials { get; set; } = new List<MaterialBlueprintsEntity>();
 }

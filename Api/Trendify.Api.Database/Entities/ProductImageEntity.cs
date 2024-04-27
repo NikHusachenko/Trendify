@@ -2,8 +2,8 @@
 
 public sealed record ProductImageEntity : BaseEntity
 {
-    public string Extention { get; set; }
-
+    public string Extension { get; set; } = string.Empty;
+    
     public Guid ProductId { get; set; }
     public ProductEntity Product { get; set; }
 }

@@ -4,16 +4,10 @@ using Trendify.Api.Database.Entities;
 
 namespace Trendify.Api.EntityFramework.Configurations;
 
-internal sealed class BlueprintConfiguration : IEntityTypeConfiguration<BlueprintEntity>
+public sealed class BlueprintConfiguration : IEntityTypeConfiguration<BlueprintEntity>
 {
     public void Configure(EntityTypeBuilder<BlueprintEntity> builder)
     {
-        builder.ToTable("Blueprints").HasKey(bp => bp.Id);
-
-        builder.HasOne<ProductEntity>(product => product.Product)
-        .WithOne(pr => pr.Blueprint)
-        .HasForeignKey<BlueprintEntity>(product => product.ProductId);
-
-
+        builder.ToTable("Blueprints").HasKey(blueprint => blueprint.Id);
     }
 }

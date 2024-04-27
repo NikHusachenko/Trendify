@@ -4,7 +4,7 @@ using Trendify.Api.Database.Entities;
 
 namespace Trendify.Api.EntityFramework.Configurations;
 
-internal sealed class WorkshopConfiguration : IEntityTypeConfiguration<WorkshopEntity>
+public sealed class WorkshopConfiguration : IEntityTypeConfiguration<WorkshopEntity>
 {
     public void Configure(EntityTypeBuilder<WorkshopEntity> builder)
     {

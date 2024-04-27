@@ -4,7 +4,7 @@ using Trendify.Api.Database.Entities;
 
 namespace Trendify.Api.EntityFramework.Configurations;
 
-internal sealed class UserConfiguration : IEntityTypeConfiguration<UserEntity>
+public sealed class UserConfiguration : IEntityTypeConfiguration<UserEntity>
 {
     public void Configure(EntityTypeBuilder<UserEntity> builder)
     {

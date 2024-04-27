@@ -46,18 +46,39 @@ namespace Trendify.Api.EntityFramework.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("ProductId")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId")
-                        .IsUnique();
-
                     b.ToTable("Blueprints", (string)null);
+                });
+
+            modelBuilder.Entity("Trendify.Api.Database.Entities.MaterialBlueprintsEntity", b =>
+                {
+                    b.Property<Guid>("MaterialId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BlueprintId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("MaterialId", "BlueprintId");
+
+                    b.HasIndex("BlueprintId");
+
+                    b.ToTable("Material Blueprints", (string)null);
                 });
 
             modelBuilder.Entity("Trendify.Api.Database.Entities.MaterialEntity", b =>
@@ -68,9 +89,6 @@ namespace Trendify.Api.EntityFramework.Migrations
 
                     b.Property<int>("AmountUnit")
                         .HasColumnType("integer");
-
-                    b.Property<Guid?>("BlueprintEntityId")
-                        .HasColumnType("uuid");
 
                     b.Property<string>("ColorHex")
                         .IsRequired()
@@ -103,10 +121,13 @@ namespace Trendify.Api.EntityFramework.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uuid");
+
                     b.Property<float>("Price")
                         .HasColumnType("real");
 
-                    b.Property<Guid?>("SupplyId")
+                    b.Property<Guid>("SupplyId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
@@ -117,13 +138,38 @@ namespace Trendify.Api.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BlueprintEntityId");
+                    b.HasIndex("OrderId");
 
                     b.HasIndex("SupplyId");
 
                     b.HasIndex("WorkshopId");
 
                     b.ToTable("Materials", (string)null);
+                });
+
+            modelBuilder.Entity("Trendify.Api.Database.Entities.OrderEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("WorkshopId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorkshopId");
+
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Trendify.Api.Database.Entities.ProductEntity", b =>
@@ -168,12 +214,7 @@ namespace Trendify.Api.EntityFramework.Migrations
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("WorkshopId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("WorkshopId");
 
                     b.ToTable("Products", (string)null);
                 });
@@ -190,7 +231,7 @@ namespace Trendify.Api.EntityFramework.Migrations
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Extention")
+                    b.Property<string>("Extension")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -207,11 +248,72 @@ namespace Trendify.Api.EntityFramework.Migrations
                     b.ToTable("Product images", (string)null);
                 });
 
+            modelBuilder.Entity("Trendify.Api.Database.Entities.ProductWorkshopsEntity", b =>
+                {
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("WorkshopId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("ProductId", "WorkshopId");
+
+                    b.HasIndex("WorkshopId");
+
+                    b.ToTable("Product Workshops", (string)null);
+                });
+
+            modelBuilder.Entity("Trendify.Api.Database.Entities.SupplierEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Suppliers", (string)null);
+                });
+
             modelBuilder.Entity("Trendify.Api.Database.Entities.SupplyEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset?>("DeliveredAt")
                         .HasColumnType("timestamp with time zone");
@@ -220,7 +322,15 @@ namespace Trendify.Api.EntityFramework.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid>("SupplierId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("Supplies", (string)null);
                 });
@@ -283,24 +393,19 @@ namespace Trendify.Api.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("AdditionAddress")
-                        .HasColumnType("text");
-
-                    b.Property<int>("BuildingNumber")
-                        .HasColumnType("integer");
-
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int?>("CorpsNumber")
-                        .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LocalAddress")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -321,25 +426,36 @@ namespace Trendify.Api.EntityFramework.Migrations
                     b.ToTable("Workshops", (string)null);
                 });
 
-            modelBuilder.Entity("Trendify.Api.Database.Entities.BlueprintEntity", b =>
+            modelBuilder.Entity("Trendify.Api.Database.Entities.MaterialBlueprintsEntity", b =>
                 {
-                    b.HasOne("Trendify.Api.Database.Entities.ProductEntity", "Product")
-                        .WithOne("Blueprint")
-                        .HasForeignKey("Trendify.Api.Database.Entities.BlueprintEntity", "ProductId");
+                    b.HasOne("Trendify.Api.Database.Entities.BlueprintEntity", "Blueprint")
+                        .WithMany("Materials")
+                        .HasForeignKey("BlueprintId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Product");
+                    b.HasOne("Trendify.Api.Database.Entities.MaterialEntity", "Material")
+                        .WithMany("Blueprints")
+                        .HasForeignKey("MaterialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Blueprint");
+
+                    b.Navigation("Material");
                 });
 
             modelBuilder.Entity("Trendify.Api.Database.Entities.MaterialEntity", b =>
                 {
-                    b.HasOne("Trendify.Api.Database.Entities.BlueprintEntity", null)
+                    b.HasOne("Trendify.Api.Database.Entities.OrderEntity", "Order")
                         .WithMany("Materials")
-                        .HasForeignKey("BlueprintEntityId");
+                        .HasForeignKey("OrderId");
 
                     b.HasOne("Trendify.Api.Database.Entities.SupplyEntity", "Supply")
                         .WithMany("Materials")
                         .HasForeignKey("SupplyId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Trendify.Api.Database.Entities.WorkshopEntity", "Workshop")
                         .WithMany("Materials")
@@ -347,15 +463,17 @@ namespace Trendify.Api.EntityFramework.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Order");
+
                     b.Navigation("Supply");
 
                     b.Navigation("Workshop");
                 });
 
-            modelBuilder.Entity("Trendify.Api.Database.Entities.ProductEntity", b =>
+            modelBuilder.Entity("Trendify.Api.Database.Entities.OrderEntity", b =>
                 {
                     b.HasOne("Trendify.Api.Database.Entities.WorkshopEntity", "Workshop")
-                        .WithMany("Products")
+                        .WithMany("Orders")
                         .HasForeignKey("WorkshopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -374,6 +492,36 @@ namespace Trendify.Api.EntityFramework.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("Trendify.Api.Database.Entities.ProductWorkshopsEntity", b =>
+                {
+                    b.HasOne("Trendify.Api.Database.Entities.ProductEntity", "Product")
+                        .WithMany("Workshops")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Trendify.Api.Database.Entities.WorkshopEntity", "Workshop")
+                        .WithMany("Products")
+                        .HasForeignKey("WorkshopId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Workshop");
+                });
+
+            modelBuilder.Entity("Trendify.Api.Database.Entities.SupplyEntity", b =>
+                {
+                    b.HasOne("Trendify.Api.Database.Entities.SupplierEntity", "Supplier")
+                        .WithMany("Suppliers")
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Supplier");
+                });
+
             modelBuilder.Entity("Trendify.Api.Database.Entities.UserEntity", b =>
                 {
                     b.HasOne("Trendify.Api.Database.Entities.WorkshopEntity", "Workshop")
@@ -390,12 +538,26 @@ namespace Trendify.Api.EntityFramework.Migrations
                     b.Navigation("Materials");
                 });
 
+            modelBuilder.Entity("Trendify.Api.Database.Entities.MaterialEntity", b =>
+                {
+                    b.Navigation("Blueprints");
+                });
+
+            modelBuilder.Entity("Trendify.Api.Database.Entities.OrderEntity", b =>
+                {
+                    b.Navigation("Materials");
+                });
+
             modelBuilder.Entity("Trendify.Api.Database.Entities.ProductEntity", b =>
                 {
-                    b.Navigation("Blueprint")
-                        .IsRequired();
-
                     b.Navigation("Images");
+
+                    b.Navigation("Workshops");
+                });
+
+            modelBuilder.Entity("Trendify.Api.Database.Entities.SupplierEntity", b =>
+                {
+                    b.Navigation("Suppliers");
                 });
 
             modelBuilder.Entity("Trendify.Api.Database.Entities.SupplyEntity", b =>
@@ -406,6 +568,8 @@ namespace Trendify.Api.EntityFramework.Migrations
             modelBuilder.Entity("Trendify.Api.Database.Entities.WorkshopEntity", b =>
                 {
                     b.Navigation("Materials");
+
+                    b.Navigation("Orders");
 
                     b.Navigation("Products");
 

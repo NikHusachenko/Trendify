@@ -4,7 +4,7 @@ using Trendify.Api.Database.Entities;
 
 namespace Trendify.Api.EntityFramework.Configurations;
 
-internal sealed class ProductImageConfiguration : IEntityTypeConfiguration<ProductImageEntity>
+public sealed class ProductImageConfiguration : IEntityTypeConfiguration<ProductImageEntity>
 {
     public void Configure(EntityTypeBuilder<ProductImageEntity> builder)
     {
