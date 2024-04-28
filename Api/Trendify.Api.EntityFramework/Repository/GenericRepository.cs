@@ -34,7 +34,7 @@ public sealed class GenericRepository<T> : IGenericRepository<T> where T : BaseE
     }
 
     public IQueryable<T> GetAll() => 
-        _table.AsNoTracking();
+        _table.Where(entity => !entity.DeletedAt.HasValue).AsNoTracking();
 
     public IQueryable<T> GetAllBy(Expression<Func<T, bool>> predicate) =>
         _table.Where(entity => !entity.DeletedAt.HasValue)

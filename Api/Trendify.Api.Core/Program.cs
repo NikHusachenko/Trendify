@@ -16,6 +16,7 @@ services.AddDbContext<ApplicationDbContext>(options =>
 });
 services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
+services.AddSignalR();
 services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(typeof(NewSupplierRequest).Assembly));
 
 var app = builder.Build();

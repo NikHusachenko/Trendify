@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Trendify.Api.Domain.Handler.Supply.GetSupplies;
+using Trendify.Api.Domain.Handler.Supply.GetSupplyById;
 using Trendify.Api.Domain.Handler.Supply.NewSupply;
 using Trendify.Api.Services.Extensions;
 
@@ -23,4 +24,11 @@ public class SupplyController(IMediator mediator) : BaseController(mediator)
             .Map(list => list.Any() ?
                 AsSuccess(list) :
                 NotFound());
+
+    [HttpGet(GetByIdRoute)]
+    public async Task<IActionResult> GetById([FromRoute] Guid supplierId, [FromRoute] Guid id) =>
+        await SendRequest(new GetSupplyByIdRequest(supplierId, id))
+            .Map(result => result.IsError ?
+                AsError(result.ErrorMessage) :
+                AsSuccess(result.Value));
 }
