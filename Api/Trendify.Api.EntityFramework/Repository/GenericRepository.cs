@@ -43,7 +43,7 @@ public sealed class GenericRepository<T> : IGenericRepository<T> where T : BaseE
 
     public async Task<T?> GetBy(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default) =>
         await _table
-            .Where(entity => entity.DeletedAt.HasValue)
+            .Where(entity => !entity.DeletedAt.HasValue)
             .FirstOrDefaultAsync(predicate, cancellationToken);
 
     public async Task<T?> GetById(Guid id, CancellationToken cancellationToken = default) =>

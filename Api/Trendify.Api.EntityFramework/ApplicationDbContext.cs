@@ -9,6 +9,7 @@ public sealed class ApplicationDbContext : DbContext
     public DbSet<BlueprintEntity> Blueprints { get; set; }
     public DbSet<MaterialBlueprintsEntity> MaterialBlueprints { get; set; }
     public DbSet<MaterialEntity> Materials { get; set; }
+    public DbSet<MaterialWorkshopsEntity> MaterialWorkshops { get; set; }
     public DbSet<OrderEntity> Orders { get; set; }
     public DbSet<ProductEntity> Products { get; set; }
     public DbSet<ProductImageEntity> ProductImages { get; set; }
@@ -28,6 +29,7 @@ public sealed class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new BlueprintConfiguration());
         modelBuilder.ApplyConfiguration(new MaterialBlueprintsConfiguration());
         modelBuilder.ApplyConfiguration(new MaterialConfiguration());
+        modelBuilder.ApplyConfiguration(new MaterialWorkshopsConfiguration());
         modelBuilder.ApplyConfiguration(new OrderConfiguration());
         modelBuilder.ApplyConfiguration(new ProductConfiguration());
         modelBuilder.ApplyConfiguration(new ProductImageConfiguration());

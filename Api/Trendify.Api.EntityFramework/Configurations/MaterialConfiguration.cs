@@ -17,9 +17,5 @@ public sealed class MaterialConfiguration : IEntityTypeConfiguration<MaterialEnt
         builder.HasOne<OrderEntity>(material => material.Order)
             .WithMany(order => order.Materials)
             .HasForeignKey(material => material.OrderId);
-
-        builder.HasOne<WorkshopEntity>(material => material.Workshop)
-            .WithMany(workshop => workshop.Materials)
-            .HasForeignKey(material => material.WorkshopId);
     }
 }

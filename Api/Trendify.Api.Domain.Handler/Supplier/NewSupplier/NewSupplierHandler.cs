@@ -11,8 +11,6 @@ public sealed class NewSupplierHandler(
     ILogger<NewSupplierHandler> logger)
     : IRequestHandler<NewSupplierRequest, Result<Guid>>
 {
-    private const string CantCreateNewSupplierError = "Can't create new supplier.";
-
     public async Task<Result<Guid>> Handle(NewSupplierRequest request, CancellationToken cancellationToken)
     {
         SupplierEntity dbRecord = new SupplierEntity()
@@ -28,7 +26,7 @@ public sealed class NewSupplierHandler(
         catch (Exception ex)
         {
             logger.LogError($"Can't create new Supplier with address [{request.Address}] and name [{request.Name}]: {ex.Message}");
-            return Result<Guid>.Error(CantCreateNewSupplierError);
+            return Result<Guid>.Error(ex);
         }
         return Result<Guid>.Success(dbRecord.Id);
     }

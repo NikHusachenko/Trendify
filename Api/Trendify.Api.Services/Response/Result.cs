@@ -3,8 +3,8 @@
 public sealed class Result
 {
     public Error Err { get; }
-    public string? ErrorMessage => Err.ErrorMessage;
-    public bool IsError => string.IsNullOrEmpty(ErrorMessage);
+    public string? ErrorMessage => Err?.ErrorMessage;
+    public bool IsError => !string.IsNullOrEmpty(ErrorMessage);
 
     private Result(string errorMessage) => Err = Response.Error.New(errorMessage);
     private Result(Error error) => Err = Response.Error.Copy(error);
@@ -19,8 +19,8 @@ public sealed class Result
 public sealed class Result<T>
 {
     public Error Err { get; }
-    public string ErrorMessage => Err.ErrorMessage;
-    public bool IsError => string.IsNullOrEmpty(ErrorMessage);
+    public string? ErrorMessage => Err?.ErrorMessage;
+    public bool IsError => !string.IsNullOrEmpty(ErrorMessage);
     public T Value { get; }
 
     private Result(T value) => Value = value;
