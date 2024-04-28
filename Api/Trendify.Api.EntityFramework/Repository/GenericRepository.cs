@@ -15,13 +15,13 @@ public sealed class GenericRepository<T> : IGenericRepository<T> where T : BaseE
         _table = _context.Set<T>();
     }
 
-    public async Task Create(T entity)
+    public async Task Create(T entity, CancellationToken cancellationToken = default)
     {
         entity.Id = Guid.NewGuid();
         entity.CreatedAt = DateTime.Now.ToUniversalTime();
         entity.UpdatedAt = DateTime.Now.ToUniversalTime();
 
-        await _table.AddAsync(entity);
+        await _table.AddAsync(entity, cancellationToken);
         await _context.SaveChangesAsync();
     }
 
@@ -41,15 +41,16 @@ public sealed class GenericRepository<T> : IGenericRepository<T> where T : BaseE
             .Where(predicate)
             .AsNoTracking();
 
-    public async Task<T?> GetBy(Expression<Func<T, bool>> predicate) =>
+    public async Task<T?> GetBy(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default) =>
         await _table
             .Where(entity => entity.DeletedAt.HasValue)
-            .FirstOrDefaultAsync(predicate);
+            .FirstOrDefaultAsync(predicate, cancellationToken);
 
-    public async Task<T?> GetById(Guid id) =>
+    public async Task<T?> GetById(Guid id, CancellationToken cancellationToken = default) =>
         await _table.FirstOrDefaultAsync(entity => 
             entity.Id == id &&
-            !entity.DeletedAt.HasValue);
+            !entity.DeletedAt.HasValue,
+            cancellationToken);
 
     public async Task Update(T entity)
     {

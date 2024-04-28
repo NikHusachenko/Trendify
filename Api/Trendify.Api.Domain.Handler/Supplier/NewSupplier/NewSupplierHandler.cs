@@ -23,7 +23,7 @@ public sealed class NewSupplierHandler(
 
         try
         {
-            await repository.Create(dbRecord);
+            await repository.Create(dbRecord, cancellationToken);
         }
         catch (Exception ex)
         {
