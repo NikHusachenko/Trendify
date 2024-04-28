@@ -11,7 +11,7 @@ namespace Trendify.Api.Core.Controllers;
 [Route(SupplyControllerRoute)]
 public class SupplyController(IMediator mediator) : BaseController(mediator)
 {
-    [HttpGet(NewRoute)]
+    [HttpPost(NewRoute)]
     public async Task<IActionResult> Create([FromRoute] Guid supplierId, CancellationToken cancellationToken = default) =>
         await SendRequest(new NewSupplyRequest(supplierId), cancellationToken)
             .Map(result => result.IsError ?

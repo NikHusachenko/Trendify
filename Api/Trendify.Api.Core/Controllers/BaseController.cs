@@ -6,6 +6,9 @@ namespace Trendify.Api.Core.Controllers;
 public abstract class BaseController(IMediator mediator) : ControllerBase
 {
     protected const string SupplierControllerRoute = "api/supplier";
+    protected const string UpdateSupplierNameRoute = "api/supplier/{supplierId:guid}/update/name";
+    protected const string UpdateSupplierAddressRoute = "api/supplier/{supplierId:guid}/update/address";
+    protected const string RemoveSupplierRoute = "api/supplier/{supplierId:guid}/remove";
     
     protected const string SupplyControllerRoute = "api/supplier/{supplierId:guid}/supply";
 

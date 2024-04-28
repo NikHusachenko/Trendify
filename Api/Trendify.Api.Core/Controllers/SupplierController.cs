@@ -4,6 +4,8 @@ using Trendify.Api.Core.Models.Supplier;
 using Trendify.Api.Domain.Handler.Supplier.GetSupplierById;
 using Trendify.Api.Domain.Handler.Supplier.GetSuppliers;
 using Trendify.Api.Domain.Handler.Supplier.NewSupplier;
+using Trendify.Api.Domain.Handler.Supplier.UpdateSupplierAddress;
+using Trendify.Api.Domain.Handler.Supplier.UpdateSupplierName;
 using Trendify.Api.Services.Extensions;
 
 namespace Trendify.Api.Core.Controllers;
@@ -18,7 +20,7 @@ public class SupplierController(IMediator mediator) : BaseController(mediator)
             new NewSupplierRequest(request.Address, request.Name), 
             cancellationToken)
         .Map(result => result.IsError ?
-            AsError(result.ErrorMessage) :
+            AsError(result.ErrorMessage!) :
             AsSuccess(result.Value));
 
     [HttpGet(GetAllRoute)]
@@ -32,6 +34,23 @@ public class SupplierController(IMediator mediator) : BaseController(mediator)
     public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken cancellationToken = default) =>
         await SendRequest(new GetSupplierByIdRequest(id), cancellationToken)
             .Map(result => result.IsError ?
-                AsError(result.ErrorMessage) :
+                AsError(result.ErrorMessage!) :
                 AsSuccess(result.Value));
+
+    [HttpPut(UpdateSupplierNameRoute)]
+    public async Task<IActionResult> UpdateName([FromRoute] Guid supplierId, [FromBody] UpdateSupplierNameApiRequest request, CancellationToken cancellationToken = default) =>
+        await SendRequest(new UpdateSupplierNameRequest(supplierId, request.Name), cancellationToken)
+            .Map(result => result.IsError ?
+                AsError(result.ErrorMessage!) :
+                AsSuccess());
+
+    [HttpPut(UpdateSupplierAddressRoute)]
+    public async Task<IActionResult> UpdateAddress([FromRoute] Guid supplierId, [FromBody] UpdateSupplierAddressApiRequest request, CancellationToken cancellationToken = default) =>
+        await SendRequest(new UpdateSupplierAddressRequest(supplierId, request.Address), cancellationToken)
+            .Map(result => result.IsError ? 
+                AsError(result.ErrorMessage!) :
+                AsSuccess());
+
+    [HttpDelete(RemoveSupplierRoute)]
+    public async Task<IActionResult> Remove([FromRoute] Guid suppliedId, CancellationToken cancellationToken = default) => Ok();
 }
