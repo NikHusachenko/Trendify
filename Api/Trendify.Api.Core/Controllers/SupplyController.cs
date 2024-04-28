@@ -6,6 +6,7 @@ using Trendify.Api.Domain.Handler.Supply.CompleteSupply;
 using Trendify.Api.Domain.Handler.Supply.GetSupplies;
 using Trendify.Api.Domain.Handler.Supply.GetSupplyById;
 using Trendify.Api.Domain.Handler.Supply.NewSupply;
+using Trendify.Api.Domain.Handler.Supply.RemoveMaterialFromSupply;
 using Trendify.Api.Services.Extensions;
 
 namespace Trendify.Api.Core.Controllers;
@@ -44,14 +45,4 @@ public class SupplyController(IMediator mediator) : BaseController(mediator)
 
     [HttpPut(PaySupplyRoute)]
     public async Task<IActionResult> Pay([FromRoute] Guid id, CancellationToken cancellationToken = default) => Ok();
-
-    [HttpPost(AppendSupplyProductRoute)]
-    public async Task<IActionResult> AppendProduct([FromRoute] Guid id, [FromBody] AppendMaterialToSupplyApiRequest request, CancellationToken cancellationToken = default) =>
-        await SendRequest(new AppendMaterialToSupplyRequest(id, request.MaterialId), cancellationToken)
-            .Map(result => result.IsError ?
-                AsError(result.ErrorMessage!) :
-                AsSuccess());
-
-    [HttpPost(RemoveSupplyProductRoute)]
-    public async Task<IActionResult> RemoveProduct([FromRoute] Guid id, CancellationToken cancellationToken = default) => Ok();
 }

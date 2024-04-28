@@ -8,5 +8,5 @@ public sealed record SupplyEntity : BaseEntity
     public Guid SupplierId { get; set; }
     public SupplierEntity Supplier { get; set; }
 
-    public List<MaterialEntity> Materials { get; set; } = new List<MaterialEntity>();
+    public List<DeliveryMaterialEntity> Materials { get; set; } = new List<DeliveryMaterialEntity>();
 }

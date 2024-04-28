@@ -4,4 +4,4 @@ using Trendify.Api.Services.Response;
 
 namespace Trendify.Api.Domain.Handler.Supply.AppendMaterialToSupply;
 
-public sealed record AppendMaterialToSupplyRequest(Guid SupplyId, Guid ProductId) : IRequest<Result>;
+public sealed record AppendMaterialToSupplyRequest() : IRequest<Result>;

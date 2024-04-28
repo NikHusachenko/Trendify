@@ -13,13 +13,11 @@ public sealed record MaterialEntity : BaseEntity
     public float Price { get; set; }
     public int Count { get; set; }
     public bool IsUsed { get; set; }
-
-    public Guid? SupplyId { get; set; }
-    public SupplyEntity Supply { get; set; }
     
     public Guid? OrderId { get; set; }
     public OrderEntity Order { get; set; }
 
+    public List<DeliveryMaterialEntity> Supplies = new List<DeliveryMaterialEntity>();
     public List<MaterialWorkshopsEntity> Workshops { get; set; } = new List<MaterialWorkshopsEntity>();
     public List<MaterialBlueprintsEntity> Blueprints { get; set; } = new List<MaterialBlueprintsEntity>();
 }

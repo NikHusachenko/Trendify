@@ -7,6 +7,7 @@ namespace Trendify.Api.EntityFramework;
 public sealed class ApplicationDbContext : DbContext
 {
     public DbSet<BlueprintEntity> Blueprints { get; set; }
+    public DbSet<DeliveryMaterialEntity> DeliveryMaterials { get; set; }
     public DbSet<MaterialBlueprintsEntity> MaterialBlueprints { get; set; }
     public DbSet<MaterialEntity> Materials { get; set; }
     public DbSet<MaterialWorkshopsEntity> MaterialWorkshops { get; set; }
@@ -27,6 +28,7 @@ public sealed class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new BlueprintConfiguration());
+        modelBuilder.ApplyConfiguration(new DeliveryMaterialConfiguration());
         modelBuilder.ApplyConfiguration(new MaterialBlueprintsConfiguration());
         modelBuilder.ApplyConfiguration(new MaterialConfiguration());
         modelBuilder.ApplyConfiguration(new MaterialWorkshopsConfiguration());
