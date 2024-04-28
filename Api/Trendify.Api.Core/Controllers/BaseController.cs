@@ -6,6 +6,7 @@ namespace Trendify.Api.Core.Controllers;
 public abstract class BaseController(IMediator mediator) : ControllerBase
 {
     protected const string SupplierControllerRoute = "api/supplier";
+    protected const string SupplyControllerRoute = "api/supplier/{supplierId:guid}/supply";
 
     protected const string NewRoute = "new";
     protected const string GetAllRoute = "get/all";
@@ -20,10 +21,10 @@ public abstract class BaseController(IMediator mediator) : ControllerBase
             errorMessage
         };
     
-    protected IActionResult AsErrorResponse(object responseObject) =>
+    protected IActionResult AsError(object responseObject) =>
         BadRequest(responseObject);
 
-    protected IActionResult AsErrorResponse(string errorMessage) =>
+    protected IActionResult AsError(string errorMessage) =>
         BadRequest(ToErrorResponse(errorMessage));
 
     protected IActionResult AsNotFound(string errorMessage) =>

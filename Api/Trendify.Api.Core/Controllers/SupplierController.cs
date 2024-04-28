@@ -17,7 +17,7 @@ public class SupplierController(IMediator mediator) : BaseController(mediator)
             new NewSupplierRequest(request.Address, request.Name), 
             cancellationToken)
         .Map(result => result.IsError ?
-            AsErrorResponse(result.ErrorMessage) :
+            AsError(result.ErrorMessage) :
             AsSuccess(result.Value));
 
     [HttpGet(GetAllRoute)]
