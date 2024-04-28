@@ -4,6 +4,7 @@ using Trendify.Api.Core.Models.Supplier;
 using Trendify.Api.Domain.Handler.Supplier.GetSupplierById;
 using Trendify.Api.Domain.Handler.Supplier.GetSuppliers;
 using Trendify.Api.Domain.Handler.Supplier.NewSupplier;
+using Trendify.Api.Domain.Handler.Supplier.RemoveSupplier;
 using Trendify.Api.Domain.Handler.Supplier.UpdateSupplierAddress;
 using Trendify.Api.Domain.Handler.Supplier.UpdateSupplierName;
 using Trendify.Api.Services.Extensions;
@@ -52,5 +53,9 @@ public class SupplierController(IMediator mediator) : BaseController(mediator)
                 AsSuccess());
 
     [HttpDelete(RemoveSupplierRoute)]
-    public async Task<IActionResult> Remove([FromRoute] Guid suppliedId, CancellationToken cancellationToken = default) => Ok();
+    public async Task<IActionResult> Remove([FromRoute] Guid supplierId, CancellationToken cancellationToken = default) =>
+        await SendRequest(new RemoveSupplierRequest(supplierId), cancellationToken)
+            .Map(result => result.IsError ?
+                AsError(result.ErrorMessage!) :
+                AsSuccess());
 }
