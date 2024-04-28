@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Trendify.Api.Domain.Handler.Supplier.NewSupplier;
 using Trendify.Api.EntityFramework;
 using Trendify.Api.EntityFramework.Repository;
 
@@ -14,6 +15,8 @@ services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
 });
 services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(typeof(NewSupplierRequest).Assembly));
 
 var app = builder.Build();
 
