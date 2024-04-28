@@ -1,5 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Trendify.Api.Core.Models.Supply;
+using Trendify.Api.Domain.Handler.Supply.AppendMaterialToSupply;
+using Trendify.Api.Domain.Handler.Supply.CompleteSupply;
 using Trendify.Api.Domain.Handler.Supply.GetSupplies;
 using Trendify.Api.Domain.Handler.Supply.GetSupplyById;
 using Trendify.Api.Domain.Handler.Supply.NewSupply;
@@ -15,7 +18,7 @@ public class SupplyController(IMediator mediator) : BaseController(mediator)
     public async Task<IActionResult> Create([FromRoute] Guid supplierId, CancellationToken cancellationToken = default) =>
         await SendRequest(new NewSupplyRequest(supplierId), cancellationToken)
             .Map(result => result.IsError ?
-                AsError(result.ErrorMessage) :
+                AsError(result.ErrorMessage!) :
                 AsSuccess(result.Value));
 
     [HttpGet(GetAllRoute)]
@@ -29,6 +32,26 @@ public class SupplyController(IMediator mediator) : BaseController(mediator)
     public async Task<IActionResult> GetById([FromRoute] Guid supplierId, [FromRoute] Guid id, CancellationToken cancellationToken = default) =>
         await SendRequest(new GetSupplyByIdRequest(supplierId, id), cancellationToken)
             .Map(result => result.IsError ?
-                AsError(result.ErrorMessage) :
+                AsError(result.ErrorMessage!) :
                 AsSuccess(result.Value));
+
+    [HttpPut(CompleteSupplyRoute)]
+    public async Task<IActionResult> Complete([FromRoute] Guid id, CancellationToken cancellationToken = default) =>
+        await SendRequest(new CompleteSupplyRequest(id))
+            .Map(result => result.IsError ?
+                AsError(result.ErrorMessage!) :
+                AsSuccess());
+
+    [HttpPut(PaySupplyRoute)]
+    public async Task<IActionResult> Pay([FromRoute] Guid id, CancellationToken cancellationToken = default) => Ok();
+
+    [HttpPost(AppendSupplyProductRoute)]
+    public async Task<IActionResult> AppendProduct([FromRoute] Guid id, [FromBody] AppendMaterialToSupplyApiRequest request, CancellationToken cancellationToken = default) =>
+        await SendRequest(new AppendMaterialToSupplyRequest(id, request.MaterialId), cancellationToken)
+            .Map(result => result.IsError ?
+                AsError(result.ErrorMessage!) :
+                AsSuccess());
+
+    [HttpPost(RemoveSupplyProductRoute)]
+    public async Task<IActionResult> RemoveProduct([FromRoute] Guid id, CancellationToken cancellationToken = default) => Ok();
 }
