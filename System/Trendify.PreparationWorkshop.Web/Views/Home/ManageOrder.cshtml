@@ -14,29 +14,29 @@
                 </div>
                 <div class="card-text">
                     <div class="input-group my-3">
-                        <span class="input-group-text">Name of order</span>
+                        <span id="new_order" class="input-group-text">Name of order</span>
                         <input type="text" aria-label="Enter the name of order" class="form-control">
                     </div>
 
                     <div class="input-group my-3">
                         <span class="input-group-text">Quantity of details</span>
-                        <input type="number" aria-label="Enter the quantity or details" class="form-control">
+                        <input id="new_quantity" type="number" aria-label="Enter the quantity or details" class="form-control">
                     </div>
 
                     <div class="input-group my-3">
-                        <label class="input-group-text" for="inputGroupSelectDetail">Choose the item</label>
-                        <select class="form-select" id="inputGroupSelect01">
-                            <option selected>Choose...</option>
-                            <option value="1">Item One</option>
-                            <option value="2">Item Two</option>
-                            <option value="3">Item Three</option>
-                            <option value="4">Item Four</option>
-                            <option value="5">Item Five</option>
-                            <option value="6">Item Six</option>
+                        <label class="input-group-text" for="inputGroupSelectDetail">Choose the detail</label>
+                        <select class="form-select" id="inputGroupSelectDetail">
+                            <option value="0" selected>Choose...</option>
+                            <option value="1">Detail One</option>
+                            <option value="2">Detail Two</option>
+                            <option value="3">Detail Three</option>
+                            <option value="4">Detail Four</option>
+                            <option value="5">Detail Five</option>
+                            <option value="6">Detail Six</option>
                         </select>
                     </div>
                     <div class="text-center mb-3">
-                        <button type="button" class="btn btn-warning btn-lg">Submit the order</button>
+                        <button id ="submitOrderBtn" type="button" class="btn btn-warning btn-lg">Submit the order</button>
                     </div>
                 </div>
 
@@ -102,3 +102,39 @@
         </div>
     </div>
 </div>
+<script>
+    const submitOrderBtn = document.getElementById('submitOrderBtn');
+
+    submitOrderBtn.addEventListener('click', async () => {
+
+        const name = document.querySelector('input[aria-label="Enter the name of order"]').value;
+        const quantity = document.querySelector('input[aria-label="Enter the quantity or details"]').value;
+        const detailSelect = document.getElementById('inputGroupSelectDetail');
+        const selectedDetailId = detailSelect.value;
+
+        const data = {
+            Name: new_order,
+            Quantity: new_quantity,
+            DetailId: selectedDetailId
+        };
+
+        try {
+            const response = await fetch('/api/materials/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log('Order submitted successfully. Material ID:', responseData.MaterialId);
+            } else {
+                console.error('Failed to submit the order:', response.statusText);
+            }
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
+    });
+</script>
