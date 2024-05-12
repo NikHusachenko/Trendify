@@ -11,13 +11,13 @@ public abstract class BaseController(IMediator mediator) : ControllerBase
     protected const string RemoveSupplierRoute = "{supplierId:guid}/remove";
     
     protected const string SupplyControllerRoute = "api/supplier/{supplierId:guid}/supply";
-    protected const string AppendSupplyProductRoute = "{id:guid}/materials/append";
-    protected const string RemoveSupplyProductRoute = "{id:guid}/materials/remove";
+    protected const string AppendMaterialFromSupplyRoute = "{id:guid}/materials/append";
+    protected const string RemoveMaterialFromSupplyRoute = "{id:guid}/materials/remove";
     protected const string CompleteSupplyRoute = "complete/{id:guid}";
     protected const string PaySupplyRoute = "pay/{id:guid}";
 
     protected const string MaterialControllerRoute = "api/material";
-    protected const string AttachNewMaterialIntoSupplyRoute = "api/material/supply/{supplyId:guid}/attach";
+    // protected const string AttachNewMaterialIntoSupplyRoute = "api/material/supply/{supplyId:guid}/attach";
 
     protected const string WorkshopControllerRoute = "api/workshop";
 

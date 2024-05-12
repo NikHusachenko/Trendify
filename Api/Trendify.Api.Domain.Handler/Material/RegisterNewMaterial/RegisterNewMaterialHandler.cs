@@ -5,7 +5,7 @@ using Trendify.Api.EntityFramework.Repository;
 using Trendify.Api.Services.Extensions;
 using Trendify.Api.Services.Response;
 
-namespace Trendify.Api.Domain.Handler.Material;
+namespace Trendify.Api.Domain.Handler.Material.RegisterNewMaterial;
 
 public sealed class RegisterNewMaterialHandler(
     IGenericRepository<MaterialEntity> repository,
@@ -26,7 +26,7 @@ public sealed class RegisterNewMaterialHandler(
         {
             Name = request.Name,
         };
-        
+
         try
         {
             await repository.Create(entity);

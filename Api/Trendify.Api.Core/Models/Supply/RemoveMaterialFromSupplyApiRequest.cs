@@ -1,6 +1,6 @@
-﻿namespace Trendify.Api.Core.Models.Supply;
+﻿using MediatR;
+using Trendify.Api.Services.Response;
 
-public sealed record RemoveMaterialFromSupplyApiRequest
-{
-    public Guid SupplyId { get; set; }
-}
+namespace Trendify.Api.Core.Models.Supply;
+
+public sealed record RemoveMaterialFromSupplyApiRequest(Guid Id) : IRequest<Result>;

@@ -16,7 +16,4 @@ public static class EitherMapper
             Either<Error, T>.MapLeft(result.Err) :
             Either<Error, T>.MapRight(result.Value);
     }
-
-/*    public static Result<T> Map<T>(this Either<Error, T> result, Func<Error, Result<T>> left, Func<T, Result<T>> right) =>
-        result.IsLeft ? left(result.Left) : right(result.Right);*/
 }
