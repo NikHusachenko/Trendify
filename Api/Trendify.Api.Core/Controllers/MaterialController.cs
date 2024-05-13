@@ -11,14 +11,14 @@ namespace Trendify.Api.Core.Controllers;
 [Route(MaterialControllerRoute)]
 public class MaterialController(IMediator mediator) : BaseController(mediator)
 {
-    [HttpPost(RegisterNew)]
+    [HttpPost(RegisterBaseNew)]
     public async Task<IActionResult> Create([FromBody] RegisterMaterialApiRequest request, CancellationToken cancellationToken = default) =>
         await SendRequest(new RegisterNewMaterialRequest(request.Name), cancellationToken)
             .Map(result => result.IsError ?
                 AsError(result.ErrorMessage!) :
                 AsSuccess(result.Value));
 
-    [HttpGet(GetByIdRoute)]
+    [HttpGet(GetByIdBaseRoute)]
     public async Task<IActionResult> GetById([FromRoute]Guid id) =>
         await SendRequest(new GetMaterialByIdRequest(id))
             .Map(result => result.IsError ?

@@ -16,7 +16,7 @@ namespace Trendify.Api.Core.Controllers;
 [Route(SupplyControllerRoute)]
 public class SupplyController(IMediator mediator) : BaseController(mediator)
 {
-    [HttpPost(NewRoute)]
+    [HttpPost(NewBaseRoute)]
     public async Task<IActionResult> Create([FromRoute] Guid supplierId, CancellationToken cancellationToken = default) =>
         await SendRequest(new NewSupplyRequest(supplierId), 
             cancellationToken)
@@ -24,7 +24,7 @@ public class SupplyController(IMediator mediator) : BaseController(mediator)
             AsError(result.ErrorMessage!) :
             AsSuccess(result.Value));
 
-    [HttpGet(GetAllRoute)]
+    [HttpGet(GetAllBaseRoute)]
     public async Task<IActionResult> GetAll([FromRoute] Guid supplierId, CancellationToken cancellationToken = default) =>
         await SendRequest(new GetSuppliesRequest(supplierId), 
             cancellationToken)
@@ -32,7 +32,7 @@ public class SupplyController(IMediator mediator) : BaseController(mediator)
             AsSuccess(list) :
             NotFound());
 
-    [HttpGet(GetByIdRoute)]
+    [HttpGet(GetByIdBaseRoute)]
     public async Task<IActionResult> GetById([FromRoute] Guid supplierId, [FromRoute] Guid id, CancellationToken cancellationToken = default) =>
         await SendRequest(new GetSupplyByIdRequest(supplierId, id), 
             cancellationToken)

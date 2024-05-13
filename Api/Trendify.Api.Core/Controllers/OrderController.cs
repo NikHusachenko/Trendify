@@ -7,6 +7,6 @@ namespace Trendify.Api.Core.Controllers;
 [Route(OrderControllerRoute)]
 public sealed class OrderController(IMediator mediator) : BaseController(mediator)
 {
-    [HttpPost(NewRoute)]
+    [HttpPost(NewBaseRoute)]
     public async Task<IActionResult> Create() => Ok();
 }

@@ -96,4 +96,20 @@ public static class Try
         }
         return Result.Success();
     }
+
+    public static async Task<Result> TryExecuteAsync<TIn>(this TIn arg, Func<TIn, Task> action)
+    {
+        try
+        {
+            await Task.Run(() =>
+            {
+                action(arg);
+            });
+        }
+        catch (Exception ex)
+        {
+            return Result.Error(ex);
+        }
+        return Result.Success();
+    }
 }
