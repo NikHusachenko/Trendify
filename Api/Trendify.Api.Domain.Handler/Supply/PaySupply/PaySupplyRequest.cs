@@ -3,4 +3,4 @@ using Trendify.Api.Services.Response;
 
 namespace Trendify.Api.Domain.Handler.Supply.PaySupply;
 
-public sealed record PaySupplyRequest(Guid Id) : IRequest<Result>;
+public sealed record PaySupplyRequest(Guid SupplyId, Guid WarehouseId) : IRequest<Result>;

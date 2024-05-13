@@ -11,22 +11,24 @@ public abstract class BaseController(IMediator mediator) : ControllerBase
     protected const string RemoveSupplierRoute = "{supplierId:guid}/remove";
     
     protected const string SupplyControllerRoute = "api/supplier/{supplierId:guid}/supply";
-    protected const string AppendSupplyProductRoute = "{id:guid}/materials/append";
-    protected const string RemoveSupplyProductRoute = "{id:guid}/materials/remove";
-    protected const string CompleteSupplyRoute = "complete/{id:guid}";
-    protected const string PaySupplyRoute = "pay/{id:guid}";
+    protected const string AppendMaterialFromSupplyRoute = "{id:guid}/materials/append";
+    protected const string RemoveMaterialFromSupplyRoute = "{id:guid}/materials/remove";
+    protected const string CompleteSupplyRoute = "{id:guid}/complete";
+    protected const string PaySupplyRoute = "{id:guid}/pay";
 
     protected const string MaterialControllerRoute = "api/material";
-    protected const string AttachNewMaterialIntoSupplyRoute = "api/material/supply/{supplyId:guid}/attach";
 
     protected const string WorkshopControllerRoute = "api/workshop";
+    protected const string UpdateWorkshopNameRoute = "{id:guid}/update/name";
+    protected const string UpdateWorkshopInfoRoute = "{id:guid}/update/info";
+    protected const string RemoveWorkshopRoute = "{id:guid}/remove";
 
     protected const string OrderControllerRoute = "api/workshop/{workshopId:guid}/order";
 
-    protected const string NewRoute = "new";
-    protected const string RegisterNew = "register-new";
-    protected const string GetAllRoute = "get/all";
-    protected const string GetByIdRoute = "get/{id:guid}";
+    protected const string NewBaseRoute = "new";
+    protected const string RegisterBaseNew = "register-new";
+    protected const string GetAllBaseRoute = "get/all";
+    protected const string GetByIdBaseRoute = "get/{id:guid}";
 
     protected async Task<T> SendRequest<T>(IRequest<T> request, CancellationToken cancellationToken = default) =>
         await mediator.Send(request, cancellationToken);

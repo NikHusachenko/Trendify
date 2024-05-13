@@ -7,12 +7,15 @@ using Trendify.Api.Services.Response;
 namespace Trendify.Api.Domain.Handler.Supply.AppendMaterialToSupply;
 
 public sealed class AppendMaterialToSupplyHandler(
-    IGenericRepository<MaterialEntity> repository)
+    IGenericRepository<DeliveryMaterialEntity> repository)
     : IRequestHandler<AppendMaterialToSupplyRequest, Result>
 {
-    public async Task<Result> Handle(AppendMaterialToSupplyRequest request, CancellationToken cancellationToken)
-    {
-        // TODO
-        throw new Exception();
-    }
+    public async Task<Result> Handle(AppendMaterialToSupplyRequest request, CancellationToken cancellationToken) =>
+        await new DeliveryMaterialEntity()
+        {
+            Count = request.Count,
+            MaterialId = request.MaterialId,
+            Price = request.Price,
+            SupplyId = request.SupplyId,
+        }.TryExecute(repository.Create, cancellationToken);
 }
