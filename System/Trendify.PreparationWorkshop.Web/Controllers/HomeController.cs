@@ -17,6 +17,10 @@ namespace Trendify.PreparationWorkshop.Web.Controllers
         {
             return View();
         }
+        public IActionResult ManageSupliers()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
         {

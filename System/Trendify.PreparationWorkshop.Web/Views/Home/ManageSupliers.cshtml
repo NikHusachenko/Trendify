@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "Supliers";
+}
+<div class="text-center hero_img">
+    <h1 class="display-1 hero_block">Иенеджер постачальників</h1>
+</div>
+
+<div class="addingCuttingSuplier">
+    <div class="container align-self-center">
+        <div class="row">
+            <div class="col-lg-4 my-2 mx-1 card-body">
+                <div class="col card-header display-6 text-center">
+                    Add Suplier
+                </div>
+                <div class="card-text">
+                    <div class="input-group my-3">
+                        <span id="new_Suplier" class="input-group-text">Name of Suplier</span>
+                        <input type="text" aria-label="Enter the name of Suplier" class="form-control">
+                    </div>
+                    <div class="input-group my-3">
+                        <label class="input-group-text" for="inputGroupSelectSuplier">Choose the item</label>
+                        <select class="form-select" id="inputGroupSelect01">
+                            <option selected>Choose...</option>
+                            <option value="1">Item One</option>
+                            <option value="2">Item Two</option>
+                            <option value="3">Item Three</option>
+                            <option value="4">Item Four</option>
+                            <option value="5">Item Five</option>
+                            <option value="6">Item Six</option>
+                        </select>
+                    </div>
+
+                    <div class="text-center mb-3">
+                        <button id ="submitSuplierBtn" type="button" class="btn btn-warning btn-lg">Submit the Suplier</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 my-2 mx-1 card-body">
+                <div class="col card-header display-6 text-center">
+                    Delete Suplier
+                </div>
+                <div class="card-text">
+                    <div class="input-group my-3">
+                        <label class="input-group-text" for="inputGroupSelectSuplier">Choose the Suplier to delete</label>
+                        <select class="form-select" id="inputGroupSelect01">
+                            <option selected>Choose...</option>
+                            <option value="1">Suplier #1</option>
+                            <option value="2">Suplier #2</option>
+                        </select>
+                    </div>
+                    <div class="text-center my-3">
+                        <button type="button" class="btn btn-warning btn-lg">Delete the Suplier</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mx-1 my-2 card-body">
+                <div class="col card-header display-6 text-center">
+                    Change Suplier
+                </div>
+                <div class="card-text">
+                    <div class="input-group my-3">
+                        <label class="input-group-text" for="inputGroupSelectSuplier">Choose the Suplier to change</label>
+                        <select class="form-select" id="inputGroupSelect01">
+                            <option selected>Choose...</option>
+                            <option value="1">Suplier #1</option>
+                            <option value="2">Suplier #2</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group my-3">
+                        <label class="input-group-text" for="inputGroupSelectSuplier">Choose the item</label>
+                        <select class="form-select" id="inputGroupSelect01">
+                            <option selected>Choose...</option>
+                            <option value="1">Item One</option>
+                            <option value="2">Item Two</option>
+                            <option value="3">Item Three</option>
+                            <option value="4">Item Four</option>
+                            <option value="5">Item Five</option>
+                            <option value="6">Item Six</option>
+                        </select>
+                    </div>
+                    <div class="text-center my-3">
+                        <button type="button" class="btn btn-warning btn-lg">Change the Suplier</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
