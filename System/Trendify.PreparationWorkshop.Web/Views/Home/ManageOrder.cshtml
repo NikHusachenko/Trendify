@@ -102,39 +102,3 @@
         </div>
     </div>
 </div>
-<script>
-    const submitOrderBtn = document.getElementById('submitOrderBtn');
-
-    submitOrderBtn.addEventListener('click', async () => {
-
-        const name = document.querySelector('input[aria-label="Enter the name of order"]').value;
-        const quantity = document.querySelector('input[aria-label="Enter the quantity or details"]').value;
-        const detailSelect = document.getElementById('inputGroupSelectDetail');
-        const selectedDetailId = detailSelect.value;
-
-        const data = {
-            Name: new_order,
-            Quantity: new_quantity,
-            DetailId: selectedDetailId
-        };
-
-        try {
-            const response = await fetch('/api/materials/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-
-            if (response.ok) {
-                const responseData = await response.json();
-                console.log('Order submitted successfully. Material ID:', responseData.MaterialId);
-            } else {
-                console.error('Failed to submit the order:', response.statusText);
-            }
-        } catch (error) {
-            console.error('An error occurred:', error);
-        }
-    });
-</script>
