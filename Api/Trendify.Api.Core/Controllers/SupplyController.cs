@@ -48,6 +48,15 @@ public class SupplyController(IMediator mediator) : BaseController(mediator)
             AsError(result.ErrorMessage!) :
             AsSuccess());
 
+    [HttpPut(PaySupplyRoute)]
+    public async Task<IActionResult> Pay([FromRoute] Guid id, [FromBody] PaySupplyApiRequest request,
+    CancellationToken cancellationToken = default) =>
+    await SendRequest(new PaySupplyRequest(id, request.WarehouseId),
+        cancellationToken)
+    .Map(result => result.IsError ?
+        AsError(result.ErrorMessage!) :
+        AsSuccess());
+
     [HttpPost(AppendMaterialFromSupplyRoute)]
     public async Task<IActionResult> AppendMaterialToDelivery([FromRoute] Guid id, [FromBody] AppendMaterialToSupplyApiRequest request,
         CancellationToken cancellationToken = default) =>
@@ -62,15 +71,6 @@ public class SupplyController(IMediator mediator) : BaseController(mediator)
     public async Task<IActionResult> RemoveMaterialFromDelivery([FromRoute] Guid id, [FromBody] RemoveMaterialFromSupplyApiRequest request,
         CancellationToken cancellationToken = default) =>
         await SendRequest(new RemoveMaterialFromSupplyRequest(id, request.Id),
-            cancellationToken)
-        .Map(result => result.IsError ?
-            AsError(result.ErrorMessage!) :
-            AsSuccess());
-
-    [HttpPut(PaySupplyRoute)]
-    public async Task<IActionResult> Pay([FromRoute] Guid id, [FromBody] PaySupplyApiRequest request,
-        CancellationToken cancellationToken = default) =>
-        await SendRequest(new PaySupplyRequest(id, request.WarehouseId),
             cancellationToken)
         .Map(result => result.IsError ?
             AsError(result.ErrorMessage!) :

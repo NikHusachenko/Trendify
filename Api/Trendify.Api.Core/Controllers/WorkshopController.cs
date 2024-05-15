@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Trendify.Api.Core.Models.Workshop;
+using Trendify.Api.Domain.Handler.Material.GetMaterialsByWorkshop;
 using Trendify.Api.Domain.Handler.Workshop.GetWorkshopById;
 using Trendify.Api.Domain.Handler.Workshop.GetWorkshops;
 using Trendify.Api.Domain.Handler.Workshop.NewWorkshop;
@@ -34,6 +35,13 @@ public sealed class WorkshopController(IMediator mediator) : BaseController(medi
     [HttpGet(GetAllBaseRoute)]
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken = default) =>
         await SendRequest(new GetWorkshopsRequest(), cancellationToken)
+            .Map(list => list.Any() ?
+                AsSuccess(list) :
+                AsSuccess());
+
+    [HttpGet(WorkshopMaterialsRoute)]
+    public async Task<IActionResult> GetMaterials([FromRoute] Guid id, CancellationToken cancellationToken = default) =>
+        await SendRequest(new GetMaterialsByWorkshopRequest(id))
             .Map(list => list.Any() ?
                 AsSuccess(list) :
                 AsSuccess());

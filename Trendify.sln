@@ -37,6 +37,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify.SewingWorkshop.Web
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Trendify.Warehouse.Web", "Trendify.Warehouse.Web\Trendify.Warehouse.Web.csproj", "{3276CC5C-D1E4-40BF-99A8-CB8D480B5B8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trendify.Identity.Api", "Trendify.Identity.Api\Trendify.Identity.Api.csproj", "{02FDD3BF-197F-4469-9880-EF5A79473B34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{3276CC5C-D1E4-40BF-99A8-CB8D480B5B8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3276CC5C-D1E4-40BF-99A8-CB8D480B5B8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3276CC5C-D1E4-40BF-99A8-CB8D480B5B8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02FDD3BF-197F-4469-9880-EF5A79473B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02FDD3BF-197F-4469-9880-EF5A79473B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02FDD3BF-197F-4469-9880-EF5A79473B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02FDD3BF-197F-4469-9880-EF5A79473B34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
