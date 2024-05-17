@@ -13,5 +13,9 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<UserEntity>
         builder.HasOne<WorkshopEntity>(user => user.Workshop)
             .WithMany(workshop => workshop.Users)
             .HasForeignKey(user => user.WorkshopId);
+
+        builder.HasOne<CredentialsEntity>(user => user.Credentials)
+            .WithOne()
+            .HasForeignKey<UserEntity>(user => user.CredentialsId);
     }
 }

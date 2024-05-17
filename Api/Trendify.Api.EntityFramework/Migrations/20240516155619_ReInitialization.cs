@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Trendify.Api.EntityFramework.Migrations
 {
     /// <inheritdoc />
-    public partial class InitCreate : Migration
+    public partial class ReInitialization : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,6 +26,25 @@ namespace Trendify.Api.EntityFramework.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Blueprints", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Credentials",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Login = table.Column<string>(type: "text", nullable: false),
+                    HashedPassword = table.Column<string>(type: "text", nullable: false),
+                    Salt = table.Column<string>(type: "text", nullable: false),
+                    Scope = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Credentials", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -51,22 +70,6 @@ namespace Trendify.Api.EntityFramework.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Suppliers",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Address = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Suppliers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Workshops",
                 columns: table => new
                 {
@@ -83,6 +86,29 @@ namespace Trendify.Api.EntityFramework.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Workshops", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Suppliers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: false),
+                    CredentialsId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Suppliers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Suppliers_Credentials_CredentialsId",
+                        column: x => x.CredentialsId,
+                        principalTable: "Credentials",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -103,29 +129,6 @@ namespace Trendify.Api.EntityFramework.Migrations
                         name: "FK_Product images_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Supplies",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    DeliveredAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-                    From = table.Column<string>(type: "text", nullable: false),
-                    SupplierId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Supplies", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Supplies_Suppliers_SupplierId",
-                        column: x => x.SupplierId,
-                        principalTable: "Suppliers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -187,10 +190,8 @@ namespace Trendify.Api.EntityFramework.Migrations
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
                     MiddleName = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    Login = table.Column<string>(type: "text", nullable: false),
-                    HashedPassword = table.Column<string>(type: "text", nullable: false),
                     Type = table.Column<int>(type: "integer", nullable: false),
+                    CredentialsId = table.Column<Guid>(type: "uuid", nullable: false),
                     WorkshopId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -200,9 +201,38 @@ namespace Trendify.Api.EntityFramework.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Users_Credentials_CredentialsId",
+                        column: x => x.CredentialsId,
+                        principalTable: "Credentials",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Users_Workshops_WorkshopId",
                         column: x => x.WorkshopId,
                         principalTable: "Workshops",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Supplies",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    DeliveredAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    IsPaid = table.Column<bool>(type: "boolean", nullable: false),
+                    SupplierId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Supplies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Supplies_Suppliers_SupplierId",
+                        column: x => x.SupplierId,
+                        principalTable: "Suppliers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -213,7 +243,6 @@ namespace Trendify.Api.EntityFramework.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    LocalCode = table.Column<int>(type: "integer", nullable: false),
                     ColorHex = table.Column<string>(type: "text", nullable: false),
                     ColorRgb = table.Column<string>(type: "text", nullable: false),
                     ColorRal = table.Column<string>(type: "text", nullable: false),
@@ -221,9 +250,8 @@ namespace Trendify.Api.EntityFramework.Migrations
                     Currency = table.Column<int>(type: "integer", nullable: false),
                     Price = table.Column<float>(type: "real", nullable: false),
                     Count = table.Column<int>(type: "integer", nullable: false),
-                    SupplyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    IsUsed = table.Column<bool>(type: "boolean", nullable: false),
                     OrderId = table.Column<Guid>(type: "uuid", nullable: true),
-                    WorkshopId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
@@ -236,16 +264,34 @@ namespace Trendify.Api.EntityFramework.Migrations
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Delivery materials",
+                columns: table => new
+                {
+                    SupplyId = table.Column<Guid>(type: "uuid", nullable: false),
+                    MaterialId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Count = table.Column<int>(type: "integer", nullable: false),
+                    Price = table.Column<float>(type: "real", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Delivery materials", x => new { x.SupplyId, x.MaterialId });
                     table.ForeignKey(
-                        name: "FK_Materials_Supplies_SupplyId",
-                        column: x => x.SupplyId,
-                        principalTable: "Supplies",
+                        name: "FK_Delivery materials_Materials_MaterialId",
+                        column: x => x.MaterialId,
+                        principalTable: "Materials",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Materials_Workshops_WorkshopId",
-                        column: x => x.WorkshopId,
-                        principalTable: "Workshops",
+                        name: "FK_Delivery materials_Supplies_SupplyId",
+                        column: x => x.SupplyId,
+                        principalTable: "Supplies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -278,25 +324,53 @@ namespace Trendify.Api.EntityFramework.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Material Workshops",
+                columns: table => new
+                {
+                    MaterialId = table.Column<Guid>(type: "uuid", nullable: false),
+                    WorkshopId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    DeletedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Material Workshops", x => new { x.MaterialId, x.WorkshopId });
+                    table.ForeignKey(
+                        name: "FK_Material Workshops_Materials_MaterialId",
+                        column: x => x.MaterialId,
+                        principalTable: "Materials",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Material Workshops_Workshops_WorkshopId",
+                        column: x => x.WorkshopId,
+                        principalTable: "Workshops",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Delivery materials_MaterialId",
+                table: "Delivery materials",
+                column: "MaterialId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_Material Blueprints_BlueprintId",
                 table: "Material Blueprints",
                 column: "BlueprintId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Material Workshops_WorkshopId",
+                table: "Material Workshops",
+                column: "WorkshopId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Materials_OrderId",
                 table: "Materials",
                 column: "OrderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Materials_SupplyId",
-                table: "Materials",
-                column: "SupplyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Materials_WorkshopId",
-                table: "Materials",
-                column: "WorkshopId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_WorkshopId",
@@ -314,9 +388,21 @@ namespace Trendify.Api.EntityFramework.Migrations
                 column: "WorkshopId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Suppliers_CredentialsId",
+                table: "Suppliers",
+                column: "CredentialsId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Supplies_SupplierId",
                 table: "Supplies",
                 column: "SupplierId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_CredentialsId",
+                table: "Users",
+                column: "CredentialsId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_WorkshopId",
@@ -328,7 +414,13 @@ namespace Trendify.Api.EntityFramework.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Delivery materials");
+
+            migrationBuilder.DropTable(
                 name: "Material Blueprints");
+
+            migrationBuilder.DropTable(
+                name: "Material Workshops");
 
             migrationBuilder.DropTable(
                 name: "Product images");
@@ -340,6 +432,9 @@ namespace Trendify.Api.EntityFramework.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
+                name: "Supplies");
+
+            migrationBuilder.DropTable(
                 name: "Blueprints");
 
             migrationBuilder.DropTable(
@@ -349,16 +444,16 @@ namespace Trendify.Api.EntityFramework.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
+                name: "Suppliers");
+
+            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
-                name: "Supplies");
+                name: "Credentials");
 
             migrationBuilder.DropTable(
                 name: "Workshops");
-
-            migrationBuilder.DropTable(
-                name: "Suppliers");
         }
     }
 }

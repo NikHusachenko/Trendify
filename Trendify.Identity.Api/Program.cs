@@ -1,15 +1,34 @@
+using Microsoft.EntityFrameworkCore;
+using Trendify.Api.EntityFramework;
+using Trendify.Api.EntityFramework.Repository;
+using Trendify.Identity.Api.Services.AuthenticationServices;
+using Trendify.Identity.Api.Services.JwtTokenServices;
+
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
 
-// Add services to the container.
+services.AddControllers();
+services.AddEndpointsApiExplorer();
+services.AddSwaggerGen();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy => policy
+        .WithOrigins("https://localhost:7054", "http://localhost:5045")
+        .AllowAnyHeader()
+        .AllowAnyMethod());
+});
+
+services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(builder.Configuration["ConnectionStrings:DefaultConnection"]));
+services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
+
+services.AddTransient<IJwtTokenService, JwtTokenService>();
+services.AddTransient<IAuthenticationService, AuthenticationService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -22,4 +41,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseCors();
 app.Run();

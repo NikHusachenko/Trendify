@@ -9,5 +9,9 @@ public sealed class SupplierConfiguration : IEntityTypeConfiguration<SupplierEnt
     public void Configure(EntityTypeBuilder<SupplierEntity> builder)
     {
         builder.ToTable("Suppliers").HasKey(supplier => supplier.Id);
+
+        builder.HasOne<CredentialsEntity>(supplier => supplier.Credentials)
+            .WithOne()
+            .HasForeignKey<SupplierEntity>(supplier => supplier.CredentialsId);
     }
 }

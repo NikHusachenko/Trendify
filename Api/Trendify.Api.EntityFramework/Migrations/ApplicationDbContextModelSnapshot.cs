@@ -54,6 +54,46 @@ namespace Trendify.Api.EntityFramework.Migrations
                     b.ToTable("Blueprints", (string)null);
                 });
 
+            modelBuilder.Entity("Trendify.Api.Database.Entities.CredentialsEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("DeletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("HashedPassword")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Salt")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Scope")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Credentials", (string)null);
+                });
+
             modelBuilder.Entity("Trendify.Api.Database.Entities.DeliveryMaterialEntity", b =>
                 {
                     b.Property<Guid>("SupplyId")
@@ -338,18 +378,13 @@ namespace Trendify.Api.EntityFramework.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<Guid>("CredentialsId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Login")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -357,6 +392,9 @@ namespace Trendify.Api.EntityFramework.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CredentialsId")
+                        .IsUnique();
 
                     b.ToTable("Suppliers", (string)null);
                 });
@@ -401,26 +439,17 @@ namespace Trendify.Api.EntityFramework.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<Guid>("CredentialsId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("HashedPassword")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Login")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -438,6 +467,9 @@ namespace Trendify.Api.EntityFramework.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CredentialsId")
+                        .IsUnique();
 
                     b.HasIndex("WorkshopId");
 
@@ -590,6 +622,17 @@ namespace Trendify.Api.EntityFramework.Migrations
                     b.Navigation("Workshop");
                 });
 
+            modelBuilder.Entity("Trendify.Api.Database.Entities.SupplierEntity", b =>
+                {
+                    b.HasOne("Trendify.Api.Database.Entities.CredentialsEntity", "Credentials")
+                        .WithOne()
+                        .HasForeignKey("Trendify.Api.Database.Entities.SupplierEntity", "CredentialsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Credentials");
+                });
+
             modelBuilder.Entity("Trendify.Api.Database.Entities.SupplyEntity", b =>
                 {
                     b.HasOne("Trendify.Api.Database.Entities.SupplierEntity", "Supplier")
@@ -603,11 +646,19 @@ namespace Trendify.Api.EntityFramework.Migrations
 
             modelBuilder.Entity("Trendify.Api.Database.Entities.UserEntity", b =>
                 {
+                    b.HasOne("Trendify.Api.Database.Entities.CredentialsEntity", "Credentials")
+                        .WithOne()
+                        .HasForeignKey("Trendify.Api.Database.Entities.UserEntity", "CredentialsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Trendify.Api.Database.Entities.WorkshopEntity", "Workshop")
                         .WithMany("Users")
                         .HasForeignKey("WorkshopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Credentials");
 
                     b.Navigation("Workshop");
                 });
