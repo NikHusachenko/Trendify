@@ -9,5 +9,5 @@ public interface IAuthenticationService
     Task<Result<string>> SignUp(SignUpCredentials credentials);
     Task<Result<string>> SignIn(SignInCredentials credentials);
     Task<Result> SignOut(string? token);
-    Task<Result> CheckAccess(string token);
+    Task<Result> CheckAccess(string? token);
 }

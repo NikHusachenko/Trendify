@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Trendify.Api.Core.Attributes;
 
 namespace Trendify.Api.Core.Controllers;
 
+[IdentityAuthorize]
 public abstract class BaseController(IMediator mediator) : ControllerBase
 {
     protected const string SupplierControllerRoute = "api/supplier";

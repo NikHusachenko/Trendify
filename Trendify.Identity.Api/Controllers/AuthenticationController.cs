@@ -38,4 +38,15 @@ public class AuthenticationController(IAuthenticationService authenticationServi
                     errorMessage = result.ErrorMessage
                 }) :
                 NoContent() as IActionResult);
+
+    [HttpGet("check-access")]
+    public async Task<IActionResult> CheckAccess() =>
+        await authenticationService.CheckAccess(Request.Headers.Authorization)
+            .Map(result => result.IsError ?
+                    BadRequest(new
+                    {
+                        errorMessage = result.ErrorMessage
+                    }) :
+                    NoContent() as IActionResult);
+
 }

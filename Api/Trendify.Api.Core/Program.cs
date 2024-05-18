@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Trendify.Api.Core.Attributes;
 using Trendify.Api.Domain.Handler.Supplier.NewSupplier;
 using Trendify.Api.EntityFramework;
 using Trendify.Api.EntityFramework.Repository;
@@ -6,7 +7,10 @@ using Trendify.Api.EntityFramework.Repository;
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
-services.AddControllers();
+services.AddControllers(configuration =>
+{
+    configuration.Filters.Add(new IdentityAuthorizeAttribute());
+});
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 

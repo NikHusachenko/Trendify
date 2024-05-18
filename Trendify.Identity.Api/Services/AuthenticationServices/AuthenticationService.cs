@@ -79,7 +79,10 @@ public sealed class AuthenticationService : IAuthenticationService
         });
     }
 
-    public Task<Result> CheckAccess(string token) => _jwtTokenService.CheckAccess(token);
+    public Task<Result> CheckAccess(string? token) =>
+        string.IsNullOrEmpty(token) ?
+            Task.FromResult(Result.Error(CredentialsNotFoundError)) :
+            _jwtTokenService.CheckAccess(token!.Split(' ').Last());
 
     private (string hash, string salt) HashPassword(string password)
     {
