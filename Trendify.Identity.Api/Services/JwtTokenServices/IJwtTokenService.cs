@@ -1,4 +1,6 @@
-﻿using System.Security.Claims;
+﻿using System.Linq.Expressions;
+using System.Security.Claims;
+using Trendify.Api.Database.Entities;
 using Trendify.Api.Services.Response;
 
 namespace Trendify.Identity.Api.Services.JwtTokenServices;

@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using Trendify.Api.Database.Entities;
 using Trendify.Api.EntityFramework.Repository;
 using Trendify.Api.Services.Response;
@@ -27,7 +28,9 @@ public sealed class AuthenticationService : IAuthenticationService
 
     public async Task<Result<string>> SignIn(SignInCredentials credentials)
     {
-        CredentialsEntity? credentialsEntity = await GetCredentials(credentials.Login, credentials.Password);
+        var entities = await _repository.GetAllBy(e => e.Login == credentials.Login).ToListAsync();
+        CredentialsEntity? credentialsEntity = entities.FirstOrDefault(e => VerifyHashedPassword(credentials.Password, e.HashedPassword));
+
         if (credentialsEntity is null)
         {
             return Result<string>.Error(CredentialsNotFoundError);
@@ -39,11 +42,11 @@ public sealed class AuthenticationService : IAuthenticationService
     public Task<Result> SignOut(string? token) => 
         string.IsNullOrEmpty(token) ?
             Task.FromResult(Result.Error(AuthenticationTokenNotFoundError)) :
-            _jwtTokenService.DisableToken(token);
+            _jwtTokenService.DisableToken(token.Split(' ').Last());
     
     public async Task<Result<string>> SignUp(SignUpCredentials credentials)
     {
-        CredentialsEntity? credentialsEntity = await GetCredentials(credentials.Login, credentials.Password);
+        CredentialsEntity? credentialsEntity = await _repository.GetBy(e => e.Login == credentials.Login);
         if (credentialsEntity is not null)
         {
             return Result<string>.Error(WasRegisteredError);
@@ -78,10 +81,6 @@ public sealed class AuthenticationService : IAuthenticationService
 
     public Task<Result> CheckAccess(string token) => _jwtTokenService.CheckAccess(token);
 
-    private Task<CredentialsEntity?> GetCredentials(string login, string password) =>
-        _repository.GetBy(entity => entity.Login == login &&
-            VerifyHashedPassword(password, entity.HashedPassword));
-    
     private (string hash, string salt) HashPassword(string password)
     {
         string salt = Crypt.GenerateSalt();

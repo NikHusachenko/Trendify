@@ -63,4 +63,10 @@ public sealed class GenericRepository<T> : IGenericRepository<T> where T : BaseE
         _table.Remove(entity);
         await _context.SaveChangesAsync();
     }
+
+    public async Task UpdateRange(List<T> entities)
+    {
+        _table.UpdateRange(entities);
+        await _context.SaveChangesAsync();
+    }
 }

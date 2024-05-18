@@ -1,12 +1,15 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using Trendify.Api.Database.Entities;
 using Trendify.Api.EntityFramework.Repository;
 using Trendify.Api.Services.Response;
 using Trendify.Identity.Api.Services.AuthenticationServices;
+using Crypt = BCrypt.Net.BCrypt;
 
 namespace Trendify.Identity.Api.Services.JwtTokenServices;
 
@@ -17,6 +20,7 @@ public sealed class JwtTokenService : IJwtTokenService
     private const string TokenDisabledError = "Token disabled.";
     private const string ErrorWhileDisabling = "Error while token disabling.";
     private const string CredentialsNotFoundError = "Credentials not found.";
+    private const string ErrorWhileSavingToken = "Can't save token";
 
     private readonly JwtOptions _jwtOptions;
     private readonly JwtSecurityTokenHandler _securityTokenHandler;
@@ -60,17 +64,28 @@ public sealed class JwtTokenService : IJwtTokenService
 
     public async Task<Result> DisableToken(string token)
     {
-        AuthenticationTokenEntity? authenticationToken = await _repository.GetBy(entity => entity.Token == token);
+        AuthenticationTokenEntity? authenticationToken = await _repository
+            .GetAll()
+            .AsNoTracking()
+            .FirstOrDefaultAsync(entity => entity.Token == token);
+
         if (authenticationToken is null)
         {
             return Result.Error(IncorrectTokenError);
         }
 
-        authenticationToken.IsActive = false;
+        List<AuthenticationTokenEntity> tokens = await _repository
+            .GetAllBy(entity => entity.CredentialsId == authenticationToken.CredentialsId)
+            .ToListAsync();
+
+        foreach (var item in tokens)
+        {
+            item.IsActive = false;
+        }
 
         try
         {
-            await _repository.Update(authenticationToken);
+            await _repository.UpdateRange(tokens);
             return Result.Success();
         }
         catch (Exception ex)
@@ -104,13 +119,27 @@ public sealed class JwtTokenService : IJwtTokenService
         try
         {
             entity.Token = _securityTokenHandler.WriteToken(securityToken);
-            await _repository.Create(entity);
-            return Result<string>.Success(entity.Token);
         }
         catch (Exception ex)
         {
             return Result<string>.Error(ex.Message);
         }
+
+        // entity.Token = Crypt.HashString(entity.Token);
+
+        try
+        {
+            await _repository.Create(entity);
+        }
+        catch (Exception ex)
+        {
+            return Result<string>.Error(ErrorWhileSavingToken);
+        }
+
+        Result disableResult = await DisableTokens(token => token.Token != entity.Token);
+        return disableResult.IsError ?
+            Result<string>.Error(disableResult.Err) :
+            Result<string>.Success(entity.Token);
     }
 
     private bool TryFindId(IEnumerable<Claim> claims, out Guid id)
@@ -122,7 +151,7 @@ public sealed class JwtTokenService : IJwtTokenService
             return false;
         }
 
-        if (Guid.TryParse(value, out Guid _id))
+        if (!Guid.TryParse(value, out Guid _id))
         {
             id = Guid.Empty;
             return false;
@@ -130,5 +159,27 @@ public sealed class JwtTokenService : IJwtTokenService
 
         id = _id;
         return true;
+    }
+
+    private async Task<Result> DisableTokens(Expression<Func<AuthenticationTokenEntity, bool>> selector)
+    {
+        List<AuthenticationTokenEntity> tokens = await _repository
+            .GetAllBy(selector)
+            .ToListAsync();
+
+        foreach (var item in tokens)
+        {
+            item.IsActive = false;
+        }
+
+        try
+        {
+            await _repository.UpdateRange(tokens);
+            return Result.Success();
+        }
+        catch (Exception ex)
+        {
+            return Result.Error(ErrorWhileDisabling);
+        }
     }
 }

@@ -7,6 +7,7 @@ public interface IGenericRepository<T> where T : BaseEntity
 {
     Task Create(T entity, CancellationToken cancellationToken = default);
     Task Update(T entity);
+    Task UpdateRange(List<T> entities);
     Task DeleteSoft(T entity);
     Task DeleteHard(T entity);
 
