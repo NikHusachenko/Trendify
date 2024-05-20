@@ -1,8 +1,60 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="hero_block">
+    <div class="text-center hero_img">
+        <h1 class="display-1">Вітання</h1>
+    </div>
+    <div class="text-center hero_img">
+        <h1 class="display-4">Останнє замовлення:</h1>
+    </div>
+    <div class="text-center">
+        <h3 class="hero_addon">"Insert Order here"</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card-body my-5">
+            <h2 class="display-5 my-3 mb-5">Данні про цех</h2>
+            <div class="card-text row py-1">
+                <div class="col-md-3">Статус:</div>
+                <div class="col-md-9">Оперує</div>
+            </div>
+            <div class="card-text row py-1">
+                <div class="col-md-3">Зроблено за день:</div>
+                <div class="col-md-9">200 штук продукції</div>
+            </div>
+            <div class="card-text row py-1">
+                <div class="col-md-3">Адреса:</div>
+                <div class="col-md-9">М.Хмельницький в.Зарічанська 17\а</div>
+            </div>
+            <div class="card-text row py-1">
+                <div class="col-md-3">Кількість персоналу:</div>
+                <div class="col-md-9">15 чоловік</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card-body my-5">
+            <h2 class="display-5 my-3 mb-5">Управління</h2>
+            <div class="card-text row py-2">
+                <div class="col-md-3">Замовлення:</div>
+                <div class="col-md-3"></div>
+                <div class="col-2">
+                    <a class="text-dark" asp-area="" asp-controller="Home" asp-action="ManageOrder">
+                        <button type="button" class="btn btn-primary">Manage</button>
+                    </a>
+                </div>
+            </div>
+            <div class="card-text row py-2">
+                <div class="col-md-3">Працівники:</div>
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <a class="text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">
+                        Маніфест
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
