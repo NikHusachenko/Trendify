@@ -18,7 +18,8 @@ namespace Trendify.Api.Core.Controllers;
 public sealed class WorkshopController(IMediator mediator) : BaseController(mediator)
 {
     [HttpPost(NewBaseRoute)]
-    public async Task<IActionResult> Create([FromBody] NewWorkshopApiRequest request, CancellationToken cancellationToken = default) =>
+    public async Task<IActionResult> Create([FromBody] NewWorkshopApiRequest request, 
+        CancellationToken cancellationToken = default) =>
         await SendRequest(
             new NewWorkshopRequest(request.Name, request.Type, request.City, request.Street, request.LocalAddress),
             cancellationToken)
@@ -42,7 +43,7 @@ public sealed class WorkshopController(IMediator mediator) : BaseController(medi
 
     [HttpGet(WorkshopMaterialsRoute)]
     public async Task<IActionResult> GetMaterials([FromRoute] Guid id, CancellationToken cancellationToken = default) =>
-        await SendRequest(new GetMaterialsByWorkshopRequest(id))
+        await SendRequest(new GetMaterialsByWorkshopRequest(id), cancellationToken)
             .Map(list => list.Any() ?
                 AsSuccess(list) :
                 AsSuccess());
@@ -69,7 +70,7 @@ public sealed class WorkshopController(IMediator mediator) : BaseController(medi
 
     [HttpDelete(RemoveWorkshopRoute)]
     public async Task<IActionResult> Remove([FromRoute] Guid id, CancellationToken cancellationToken = default) =>
-        await SendRequest(new RemoveWorkshopRequest(id))
+        await SendRequest(new RemoveWorkshopRequest(id), cancellationToken)
             .Map(result => result.IsError ?
                 AsError(result.ErrorMessage!) :
                 AsSuccess());

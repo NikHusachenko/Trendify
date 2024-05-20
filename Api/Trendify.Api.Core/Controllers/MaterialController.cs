@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Trendify.Api.Core.Attributes;
 using Trendify.Api.Core.Models.Material;
+using Trendify.Api.Domain.Handler.Material.Delete;
 using Trendify.Api.Domain.Handler.Material.GetMaterialById;
 using Trendify.Api.Domain.Handler.Material.GetMaterials;
 using Trendify.Api.Domain.Handler.Material.RegisterNewMaterial;
@@ -33,5 +34,12 @@ public class MaterialController(IMediator mediator) : BaseController(mediator)
         await SendRequest(new GetMaterialsRequest(), cancellationToken)
             .Map(list => list.Any() ?
                 AsSuccess(list) :
+                AsSuccess());
+
+    [HttpDelete(DeleteBaseRoute)]
+    public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken cancellationToken = default) =>
+        await SendRequest(new DeleteMaterialRequest(id), cancellationToken)
+            .Map(result => result.IsError ?
+                AsError(result.ErrorMessage!) :
                 AsSuccess());
 }
