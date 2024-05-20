@@ -1,10 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Trendify.Api.Core.Attributes;
 
 namespace Trendify.Api.Core.Controllers;
 
-[IdentityAuthorize]
+[ApiController]
 public abstract class BaseController(IMediator mediator) : ControllerBase
 {
     protected const string SupplierControllerRoute = "api/supplier";
@@ -28,6 +27,10 @@ public abstract class BaseController(IMediator mediator) : ControllerBase
     protected const string RemoveWorkshopRoute = "{id:guid}/remove";
 
     protected const string OrderControllerRoute = "api/workshop/{workshopId:guid}/order";
+
+    protected const string AuthenticationControllerRoute = "api/authentication";
+    protected const string SignInRoute = "sign-in";
+    protected const string SignUpRoute = "sign-up";
 
     protected const string NewBaseRoute = "new";
     protected const string RegisterBaseNew = "register-new";

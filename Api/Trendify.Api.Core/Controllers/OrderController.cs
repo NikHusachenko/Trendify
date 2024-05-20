@@ -1,9 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Trendify.Api.Core.Attributes;
 
 namespace Trendify.Api.Core.Controllers;
 
-[ApiController]
+[IdentityAuthorize]
 [Route(OrderControllerRoute)]
 public sealed class OrderController(IMediator mediator) : BaseController(mediator)
 {

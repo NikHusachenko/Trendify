@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Trendify.Api.Core.Attributes;
 using Trendify.Api.Core.Models.Supplier;
 using Trendify.Api.Domain.Handler.Supplier.GetSupplierById;
 using Trendify.Api.Domain.Handler.Supplier.GetSuppliers;
@@ -11,7 +12,7 @@ using Trendify.Api.Services.Extensions;
 
 namespace Trendify.Api.Core.Controllers;
 
-[ApiController]
+[IdentityAuthorize]
 [Route(SupplierControllerRoute)]
 public class SupplierController(IMediator mediator) : BaseController(mediator)
 {

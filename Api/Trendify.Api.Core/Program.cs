@@ -9,7 +9,8 @@ var services = builder.Services;
 
 services.AddControllers(configuration =>
 {
-    configuration.Filters.Add(new IdentityAuthorizeAttribute());
+/*    configuration.Filters.Add(new IdentityAuthorizeAttribute());
+    configuration.Filters.Add(new IdentityAnonymousAttribute());*/
 });
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();

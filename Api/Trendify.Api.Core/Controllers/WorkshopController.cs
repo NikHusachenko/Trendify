@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Trendify.Api.Core.Attributes;
 using Trendify.Api.Core.Models.Workshop;
 using Trendify.Api.Domain.Handler.Material.GetMaterialsByWorkshop;
 using Trendify.Api.Domain.Handler.Workshop.GetWorkshopById;
@@ -12,7 +13,7 @@ using Trendify.Api.Services.Extensions;
 
 namespace Trendify.Api.Core.Controllers;
 
-[ApiController]
+[IdentityAuthorize]
 [Route(WorkshopControllerRoute)]
 public sealed class WorkshopController(IMediator mediator) : BaseController(mediator)
 {

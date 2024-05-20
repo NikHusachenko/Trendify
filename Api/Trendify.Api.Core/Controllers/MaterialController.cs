@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Trendify.Api.Core.Attributes;
 using Trendify.Api.Core.Models.Material;
 using Trendify.Api.Domain.Handler.Material.GetMaterialById;
 using Trendify.Api.Domain.Handler.Material.GetMaterials;
@@ -8,7 +9,7 @@ using Trendify.Api.Services.Extensions;
 
 namespace Trendify.Api.Core.Controllers;
 
-[ApiController]
+[IdentityAuthorize]
 [Route(MaterialControllerRoute)]
 public class MaterialController(IMediator mediator) : BaseController(mediator)
 {
