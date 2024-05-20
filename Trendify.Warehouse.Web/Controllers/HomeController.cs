@@ -23,19 +23,11 @@ namespace Trendify.Warehouse.Web.Controllers
             return View();
         }
 
-        public IActionResult Orders()
+        public IActionResult Items()
         {
             return View();
         }
 
-        public IActionResult Storage()
-        {
-            return View();
-        }
-        public IActionResult ManageOrder()
-        {
-            return View();
-        }
         public IActionResult Workers()
         {
             return View();
