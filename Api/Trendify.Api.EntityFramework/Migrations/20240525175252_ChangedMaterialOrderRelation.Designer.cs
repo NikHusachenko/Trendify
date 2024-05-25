@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Trendify.Api.EntityFramework;
@@ -11,9 +12,11 @@ using Trendify.Api.EntityFramework;
 namespace Trendify.Api.EntityFramework.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240525175252_ChangedMaterialOrderRelation")]
+    partial class ChangedMaterialOrderRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -300,26 +303,21 @@ namespace Trendify.Api.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("CloserId")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("RequesterId")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<Guid>("WorkshopId")
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CloserId");
-
-                    b.HasIndex("RequesterId");
+                    b.HasIndex("WorkshopId");
 
                     b.ToTable("Orders", (string)null);
                 });
@@ -666,21 +664,13 @@ namespace Trendify.Api.EntityFramework.Migrations
 
             modelBuilder.Entity("Trendify.Api.Database.Entities.OrderEntity", b =>
                 {
-                    b.HasOne("Trendify.Api.Database.Entities.WorkshopEntity", "Closer")
-                        .WithMany("Closed")
-                        .HasForeignKey("CloserId")
+                    b.HasOne("Trendify.Api.Database.Entities.WorkshopEntity", "Workshop")
+                        .WithMany("Orders")
+                        .HasForeignKey("WorkshopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Trendify.Api.Database.Entities.WorkshopEntity", "Requester")
-                        .WithMany("Requested")
-                        .HasForeignKey("RequesterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Closer");
-
-                    b.Navigation("Requester");
+                    b.Navigation("Workshop");
                 });
 
             modelBuilder.Entity("Trendify.Api.Database.Entities.ProductImageEntity", b =>
@@ -799,13 +789,11 @@ namespace Trendify.Api.EntityFramework.Migrations
 
             modelBuilder.Entity("Trendify.Api.Database.Entities.WorkshopEntity", b =>
                 {
-                    b.Navigation("Closed");
-
                     b.Navigation("Materials");
 
-                    b.Navigation("Products");
+                    b.Navigation("Orders");
 
-                    b.Navigation("Requested");
+                    b.Navigation("Products");
 
                     b.Navigation("Users");
                 });

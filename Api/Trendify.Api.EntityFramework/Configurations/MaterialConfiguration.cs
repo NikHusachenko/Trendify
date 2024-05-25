@@ -9,9 +9,5 @@ public sealed class MaterialConfiguration : IEntityTypeConfiguration<MaterialEnt
     public void Configure(EntityTypeBuilder<MaterialEntity> builder)
     {
         builder.ToTable("Materials").HasKey(material => material.Id);
-
-        builder.HasOne<OrderEntity>(material => material.Order)
-            .WithMany(order => order.Materials)
-            .HasForeignKey(material => material.OrderId);
     }
 }

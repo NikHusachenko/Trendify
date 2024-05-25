@@ -10,8 +10,12 @@ public sealed class OrderConfiguration : IEntityTypeConfiguration<OrderEntity>
     {
         builder.ToTable("Orders").HasKey(order => order.Id);
 
-        builder.HasOne<WorkshopEntity>(order => order.Workshop)
-            .WithMany(workshop => workshop.Orders)
-            .HasForeignKey(order => order.WorkshopId);
+        builder.HasOne<WorkshopEntity>(order => order.Requester)
+            .WithMany(workshop => workshop.Requested)
+            .HasForeignKey(order => order.RequesterId);
+
+        builder.HasOne<WorkshopEntity>(order => order.Closer)
+            .WithMany(workshop => workshop.Closed)
+            .HasForeignKey(order => order.CloserId);
     }
 }

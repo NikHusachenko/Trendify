@@ -6,9 +6,7 @@ namespace Trendify.Api.EntityFramework;
 
 public sealed class ApplicationDbContext : DbContext
 {
-    public DbSet<BlueprintEntity> Blueprints { get; set; }
     public DbSet<DeliveryMaterialEntity> DeliveryMaterials { get; set; }
-    public DbSet<MaterialBlueprintsEntity> MaterialBlueprints { get; set; }
     public DbSet<MaterialEntity> Materials { get; set; }
     public DbSet<MaterialWorkshopsEntity> MaterialWorkshops { get; set; }
     public DbSet<OrderEntity> Orders { get; set; }
@@ -21,6 +19,7 @@ public sealed class ApplicationDbContext : DbContext
     public DbSet<WorkshopEntity> Workshops { get; set; }
     public DbSet<CredentialsEntity> Credentials { get; set; }
     public DbSet<AuthenticationTokenEntity> AuthenticationTokens { get; set; }
+    public DbSet<MaterialOrdersEntity> MaterialOrders { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
@@ -29,9 +28,7 @@ public sealed class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new BlueprintConfiguration());
         modelBuilder.ApplyConfiguration(new DeliveryMaterialConfiguration());
-        modelBuilder.ApplyConfiguration(new MaterialBlueprintsConfiguration());
         modelBuilder.ApplyConfiguration(new MaterialConfiguration());
         modelBuilder.ApplyConfiguration(new MaterialWorkshopsConfiguration());
         modelBuilder.ApplyConfiguration(new OrderConfiguration());
@@ -44,5 +41,6 @@ public sealed class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new WorkshopConfiguration());
         modelBuilder.ApplyConfiguration(new CredentialsConfiguration());
         modelBuilder.ApplyConfiguration(new AuthenticationTokenConfiguration());
+        modelBuilder.ApplyConfiguration(new MaterialOrdersConfiguration());
     }
 }
