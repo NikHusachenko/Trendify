@@ -11,12 +11,12 @@ namespace Trendify.Api.Domain.Handler.Material.GetMaterialsByWorkshop;
 public sealed class GetMaterialsByWorkshopHandler(
     IGenericRepository<WorkshopEntity> workshopRepository,
     IGenericRepository<MaterialEntity> materialRepository)
-    : IRequestHandler<GetMaterialsByWorkshopRequest, List<MaterialEntity>>
+    : IRequestHandler<GetMaterialsByWorkshopRequest, Result<List<MaterialEntity>>>
 {
     private const string WorkshopNotFoundError = "Workshop not found.";
     private const string IncorrectWorkshopTypeError = "Selected workshop must be a Warehouse or Cutting workshop.";
 
-    public async Task<List<MaterialEntity>> Handle(GetMaterialsByWorkshopRequest request, CancellationToken cancellationToken) =>
+    public async Task<Result<List<MaterialEntity>>> Handle(GetMaterialsByWorkshopRequest request, CancellationToken cancellationToken) =>
         await workshopRepository.GetById(request.WorkshopId)
             .Map(entity => entity is null ?
                 Result<WorkshopEntity>.Error(WorkshopNotFoundError) :
@@ -27,9 +27,7 @@ public sealed class GetMaterialsByWorkshopHandler(
                 result.Value.Type != WorkshopType.Cutting ?
                 Result<WorkshopEntity>.Error(IncorrectWorkshopTypeError) :
                 Result<WorkshopEntity>.Success(result.Value))
-            .Map(async _ => await materialRepository
-                .GetAllBy(entity => entity.Workshops
-                    .Where(mw => mw.MaterialId == entity.Id && mw.WorkshopId == _.Value.Id).Any())
-                .ToListAsync())
-            .CompressAsync();
+            .Map(result => result.IsError ?
+                Result<List<MaterialEntity>>.Error(result.Err) :
+                Result<List<MaterialEntity>>.Success(result.Value.Supplies.SelectMany(s => s.Materials.Select(dm => dm.Material)).ToList()));
 }

@@ -8,7 +8,6 @@ public sealed class ApplicationDbContext : DbContext
 {
     public DbSet<DeliveryMaterialEntity> DeliveryMaterials { get; set; }
     public DbSet<MaterialEntity> Materials { get; set; }
-    public DbSet<MaterialWorkshopsEntity> MaterialWorkshops { get; set; }
     public DbSet<OrderEntity> Orders { get; set; }
     public DbSet<ProductEntity> Products { get; set; }
     public DbSet<ProductImageEntity> ProductImages { get; set; }
@@ -30,7 +29,6 @@ public sealed class ApplicationDbContext : DbContext
     {
         modelBuilder.ApplyConfiguration(new DeliveryMaterialConfiguration());
         modelBuilder.ApplyConfiguration(new MaterialConfiguration());
-        modelBuilder.ApplyConfiguration(new MaterialWorkshopsConfiguration());
         modelBuilder.ApplyConfiguration(new OrderConfiguration());
         modelBuilder.ApplyConfiguration(new ProductConfiguration());
         modelBuilder.ApplyConfiguration(new ProductImageConfiguration());

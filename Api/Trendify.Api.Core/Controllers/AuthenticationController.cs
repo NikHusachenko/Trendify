@@ -7,7 +7,6 @@ using Trendify.Api.Core.Models.Authentication;
 
 namespace Trendify.Api.Core.Controllers;
 
-[IdentityAnonymous]
 [Route(AuthenticationControllerRoute)]
 public sealed class AuthenticationController : BaseController
 {

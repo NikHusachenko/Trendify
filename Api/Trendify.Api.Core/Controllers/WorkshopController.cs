@@ -44,8 +44,10 @@ public sealed class WorkshopController(IMediator mediator) : BaseController(medi
     [HttpGet(WorkshopMaterialsRoute)]
     public async Task<IActionResult> GetMaterials([FromRoute] Guid id, CancellationToken cancellationToken = default) =>
         await SendRequest(new GetMaterialsByWorkshopRequest(id), cancellationToken)
-            .Map(list => list.Any() ?
-                AsSuccess(list) :
+            .Map(result => result.IsError ?
+                AsError(result.ErrorMessage!) :
+                result.Value.Any() ?
+                AsSuccess(result.Value) :
                 AsSuccess());
 
     [HttpPut(UpdateWorkshopNameRoute)]

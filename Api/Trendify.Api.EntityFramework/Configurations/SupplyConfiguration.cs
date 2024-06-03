@@ -13,5 +13,9 @@ public sealed class SupplyConfiguration : IEntityTypeConfiguration<SupplyEntity>
         builder.HasOne<SupplierEntity>(supply => supply.Supplier)
             .WithMany(supplier => supplier.Suppliers)
             .HasForeignKey(supply => supply.SupplierId);
+
+        builder.HasOne<WorkshopEntity>(supply => supply.Workshop)
+            .WithMany(workshop => workshop.Supplies)
+            .HasForeignKey(supply => supply.WorkshopId);
     }
 }

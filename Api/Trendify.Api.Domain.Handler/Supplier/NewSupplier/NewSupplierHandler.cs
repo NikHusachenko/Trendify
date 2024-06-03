@@ -1,27 +1,46 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Trendify.Api.Database.Entities;
 using Trendify.Api.EntityFramework.Repository;
+using Trendify.Api.Services.HttServices;
 using Trendify.Api.Services.Response;
 
 namespace Trendify.Api.Domain.Handler.Supplier.NewSupplier;
 
 public sealed class NewSupplierHandler(
-    IGenericRepository<SupplierEntity> repository,
-    ILogger<NewSupplierHandler> logger)
+    IGenericRepository<SupplierEntity> supplierRepository,
+    IGenericRepository<CredentialsEntity> credentialsRepository,
+    ILogger<NewSupplierHandler> logger,
+    IHttpContextAccessor httpContextAccessor)
     : IRequestHandler<NewSupplierRequest, Result<Guid>>
 {
+    private const string InvalidCredentialsError = "Invalid credentials.";
+
     public async Task<Result<Guid>> Handle(NewSupplierRequest request, CancellationToken cancellationToken)
     {
+        string? token = TokenExecutor.ExecuteToken(httpContextAccessor.HttpContext.Request.Headers);
+        if (string.IsNullOrWhiteSpace(token))
+        {
+            return Result<Guid>.Error(InvalidCredentialsError);
+        }
+
+        CredentialsEntity? credentials = await credentialsRepository.GetBy(c => c.AuthenticationTokens.FirstOrDefault(t => t.Token == token) != null);
+        if (credentials is null)
+        {
+            return Result<Guid>.Error(InvalidCredentialsError);
+        }
+
         SupplierEntity dbRecord = new SupplierEntity()
         {
             Address = request.Address,
-            Name = request.Name
+            Name = request.Name,
+            CredentialsId = credentials.Id,
         };
 
         try
         {
-            await repository.Create(dbRecord, cancellationToken);
+            await supplierRepository.Create(dbRecord, cancellationToken);
         }
         catch (Exception ex)
         {

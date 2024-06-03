@@ -14,5 +14,5 @@ public sealed record WorkshopEntity : BaseEntity
     public List<OrderEntity> Requested { get; set; } = new List<OrderEntity>();
     public List<OrderEntity> Closed { get; set; } = new List<OrderEntity>();
     public List<ProductWorkshopsEntity> Products { get; set; } = new List<ProductWorkshopsEntity>();
-    public List<MaterialWorkshopsEntity> Materials { get; set; } = new List<MaterialWorkshopsEntity>();
+    public List<SupplyEntity> Supplies { get; set; } = new List<SupplyEntity>();
 }

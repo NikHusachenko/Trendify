@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Trendify.Api.Core.Attributes;
 using Trendify.Api.Domain.Handler.Supplier.NewSupplier;
 using Trendify.Api.EntityFramework;
 using Trendify.Api.EntityFramework.Repository;
@@ -7,11 +6,7 @@ using Trendify.Api.EntityFramework.Repository;
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
-services.AddControllers(configuration =>
-{
-/*    configuration.Filters.Add(new IdentityAuthorizeAttribute());
-    configuration.Filters.Add(new IdentityAnonymousAttribute());*/
-});
+services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
@@ -23,6 +18,8 @@ services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 services.AddSignalR();
 services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(typeof(NewSupplierRequest).Assembly));
+
+services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

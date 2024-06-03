@@ -40,11 +40,7 @@ public abstract class BaseController(IMediator mediator) : ControllerBase
     protected async Task<T> SendRequest<T>(IRequest<T> request, CancellationToken cancellationToken = default) =>
         await mediator.Send(request, cancellationToken);
 
-    protected object ToErrorResponse(string errorMessage) =>
-        new
-        {
-            errorMessage
-        };
+    protected object ToErrorResponse(string errorMessage) => new { errorMessage = errorMessage };
     
     protected IActionResult AsError(object responseObject) =>
         BadRequest(responseObject);
