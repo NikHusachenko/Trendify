@@ -15,7 +15,6 @@ public sealed class AppendMaterialToSupplyHandler(
         {
             Count = request.Count,
             MaterialId = request.MaterialId,
-            Price = request.Price,
             SupplyId = request.SupplyId,
-        }.TryExecute(repository.Create, cancellationToken);
+        }.TryExecute(repository.Create);
 }

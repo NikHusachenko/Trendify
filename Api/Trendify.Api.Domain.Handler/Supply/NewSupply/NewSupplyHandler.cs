@@ -7,26 +7,48 @@ using Trendify.Api.Services.Response;
 namespace Trendify.Api.Domain.Handler.Supply.NewSupply;
 
 public sealed class NewSupplyHandler(
-    IGenericRepository<SupplyEntity> repository,
+    IGenericRepository<SupplyEntity> supplyRepository,
+    IGenericRepository<DeliveryMaterialEntity> deliveryRepository,
     ILogger<NewSupplyHandler> logger)
     : IRequestHandler<NewSupplyRequest, Result<Guid>>
 {
+    private const string SupplyCreatingError = "Error while create new supply.";
+    private const string AppendMaterialsError = "Error while append materials to supply.";
+
     public async Task<Result<Guid>> Handle(NewSupplyRequest request, CancellationToken cancellationToken)
     {
         SupplyEntity entity = new SupplyEntity()
         {
             SupplierId = request.SupplierId,
+            WorkshopId = request.WorkshopId,
         };
 
         try
         {
-            await repository.Create(entity, cancellationToken);
+            await supplyRepository.Create(entity);
         }
-        catch (Exception ex)
+        catch
         {
-            logger.LogError($"Can't create new supply: {ex.Message}");
-            return Result<Guid>.Error(ex);
+            logger.LogError(SupplyCreatingError);
+            return Result<Guid>.Error(SupplyCreatingError);
         }
+
+        List<DeliveryMaterialEntity> deliveryMaterials = request.Materials.Select(x => new DeliveryMaterialEntity()
+        {
+            MaterialId = x.id,
+            Count = x.count,
+            SupplyId = entity.Id,
+        }).ToList();
+
+        try
+        {
+            await deliveryRepository.CreateRange(deliveryMaterials);
+        }
+        catch
+        {
+            return Result<Guid>.Error(AppendMaterialsError);
+        }
+
         return Result<Guid>.Success(entity.Id);
     }
 }

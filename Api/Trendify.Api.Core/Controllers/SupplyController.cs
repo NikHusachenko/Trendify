@@ -19,12 +19,17 @@ namespace Trendify.Api.Core.Controllers;
 public class SupplyController(IMediator mediator) : BaseController(mediator)
 {
     [HttpPost(NewBaseRoute)]
-    public async Task<IActionResult> Create([FromRoute] Guid supplierId, CancellationToken cancellationToken = default) =>
-        await SendRequest(new NewSupplyRequest(supplierId), 
-            cancellationToken)
-        .Map(result => result.IsError ?
-            AsError(result.ErrorMessage!) :
-            AsSuccess(result.Value));
+    public async Task<IActionResult> Create([FromRoute] Guid supplierId, [FromBody] NewSupplyApiRequest request)
+    {
+        List<(Guid, int)> materialTuples = request.Materials
+            .Select(x => (x.Id, x.Count))
+            .ToList();
+
+        return await SendRequest(new NewSupplyRequest(supplierId, request.WorkshopId, materialTuples))
+            .Map(result => result.IsError ?
+                AsError(result.ErrorMessage!) :
+                AsSuccess(result.Value));
+    }
 
     [HttpDelete(DeleteBaseRoute)]
     public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken cancellationToken = default) =>
@@ -34,53 +39,43 @@ public class SupplyController(IMediator mediator) : BaseController(mediator)
                 AsSuccess());
 
     [HttpGet(GetAllBaseRoute)]
-    public async Task<IActionResult> GetAll([FromRoute] Guid supplierId, CancellationToken cancellationToken = default) =>
-        await SendRequest(new GetSuppliesRequest(supplierId), 
-            cancellationToken)
+    public async Task<IActionResult> GetAll([FromRoute] Guid supplierId) =>
+        await SendRequest(new GetSuppliesRequest(supplierId))
         .Map(list => list.Any() ?
             AsSuccess(list) :
             NotFound());
 
     [HttpGet(GetByIdBaseRoute)]
-    public async Task<IActionResult> GetById([FromRoute] Guid supplierId, [FromRoute] Guid id, CancellationToken cancellationToken = default) =>
-        await SendRequest(new GetSupplyByIdRequest(supplierId, id), 
-            cancellationToken)
+    public async Task<IActionResult> GetById([FromRoute] Guid supplierId, [FromRoute] Guid id) =>
+        await SendRequest(new GetSupplyByIdRequest(supplierId, id))
         .Map(result => result.IsError ?
             AsError(result.ErrorMessage!) :
             AsSuccess(result.Value));
 
     [HttpPut(CompleteSupplyRoute)]
-    public async Task<IActionResult> Complete([FromRoute] Guid id, CancellationToken cancellationToken = default) =>
-        await SendRequest(new CompleteSupplyRequest(id),
-            cancellationToken)
+    public async Task<IActionResult> Complete([FromRoute] Guid id) =>
+        await SendRequest(new CompleteSupplyRequest(id))
         .Map(result => result.IsError ?
             AsError(result.ErrorMessage!) :
             AsSuccess());
 
     [HttpPut(PaySupplyRoute)]
-    public async Task<IActionResult> Pay([FromRoute] Guid id, [FromBody] PaySupplyApiRequest request,
-    CancellationToken cancellationToken = default) =>
-    await SendRequest(new PaySupplyRequest(id, request.WarehouseId),
-        cancellationToken)
-    .Map(result => result.IsError ?
-        AsError(result.ErrorMessage!) :
-        AsSuccess());
+    public async Task<IActionResult> Pay([FromRoute] Guid id, [FromBody] PaySupplyApiRequest request) =>
+        await SendRequest(new PaySupplyRequest(id, request.WarehouseId))
+        .Map(result => result.IsError ?
+            AsError(result.ErrorMessage!) :
+            AsSuccess());
 
     [HttpPost(AppendMaterialFromSupplyRoute)]
-    public async Task<IActionResult> AppendMaterialToDelivery([FromRoute] Guid id, [FromBody] AppendMaterialToSupplyApiRequest request,
-        CancellationToken cancellationToken = default) =>
-        await SendRequest(
-            new AppendMaterialToSupplyRequest(request.MaterialId, request.Count, request.Price, id),
-            cancellationToken)
+    public async Task<IActionResult> AppendMaterialToDelivery([FromRoute] Guid id, [FromBody] AppendMaterialToSupplyApiRequest request) =>
+        await SendRequest(new AppendMaterialToSupplyRequest(request.MaterialId, request.Count, id))
         .Map(result => result.IsError ?
             AsError(result.ErrorMessage!) :
             AsSuccess());
 
     [HttpPost(RemoveMaterialFromSupplyRoute)]
-    public async Task<IActionResult> RemoveMaterialFromDelivery([FromRoute] Guid id, [FromBody] RemoveMaterialFromSupplyApiRequest request,
-        CancellationToken cancellationToken = default) =>
-        await SendRequest(new RemoveMaterialFromSupplyRequest(id, request.Id),
-            cancellationToken)
+    public async Task<IActionResult> RemoveMaterialFromDelivery([FromRoute] Guid id, [FromBody] RemoveMaterialFromSupplyApiRequest request) =>
+        await SendRequest(new RemoveMaterialFromSupplyRequest(id, request.Id))
         .Map(result => result.IsError ?
             AsError(result.ErrorMessage!) :
             AsSuccess());

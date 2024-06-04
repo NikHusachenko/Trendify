@@ -5,7 +5,8 @@ namespace Trendify.Api.EntityFramework.Repository;
 
 public interface IGenericRepository<T> where T : BaseEntity
 {
-    Task Create(T entity, CancellationToken cancellationToken = default);
+    Task Create(T entity);
+    Task CreateRange(List<T> entities);
     Task Update(T entity);
     Task UpdateRange(List<T> entities);
     Task DeleteSoft(T entity);

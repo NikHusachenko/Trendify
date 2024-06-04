@@ -19,7 +19,7 @@ public sealed class NewSupplierHandler(
 
     public async Task<Result<Guid>> Handle(NewSupplierRequest request, CancellationToken cancellationToken)
     {
-        string? token = TokenExecutor.ExecuteToken(httpContextAccessor.HttpContext.Request.Headers);
+        string? token = TokenExtractor.ExtractToken(httpContextAccessor.HttpContext.Request.Headers);
         if (string.IsNullOrWhiteSpace(token))
         {
             return Result<Guid>.Error(InvalidCredentialsError);
@@ -40,7 +40,7 @@ public sealed class NewSupplierHandler(
 
         try
         {
-            await supplierRepository.Create(dbRecord, cancellationToken);
+            await supplierRepository.Create(dbRecord);
         }
         catch (Exception ex)
         {

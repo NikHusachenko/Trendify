@@ -15,13 +15,26 @@ public sealed class GenericRepository<T> : IGenericRepository<T> where T : BaseE
         _table = _context.Set<T>();
     }
 
-    public async Task Create(T entity, CancellationToken cancellationToken = default)
+    public async Task Create(T entity)
     {
         entity.Id = Guid.NewGuid();
         entity.CreatedAt = DateTime.Now.ToUniversalTime();
         entity.UpdatedAt = DateTime.Now.ToUniversalTime();
 
-        await _table.AddAsync(entity, cancellationToken);
+        await _table.AddAsync(entity);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task CreateRange(List<T> entities)
+    {
+        foreach (var entity in entities)
+        {
+            entity.Id = Guid.NewGuid();
+            entity.CreatedAt = DateTimeOffset.Now.ToUniversalTime();
+            entity.UpdatedAt = DateTimeOffset.Now.ToUniversalTime();
+        }
+
+        await _table.AddRangeAsync(entities);
         await _context.SaveChangesAsync();
     }
 

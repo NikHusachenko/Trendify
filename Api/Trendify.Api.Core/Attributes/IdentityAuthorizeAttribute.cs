@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Net.Http.Headers;
+using Trendify.Api.Services.HttServices;
 
 namespace Trendify.Api.Core.Attributes;
 
@@ -12,7 +13,12 @@ public class IdentityAuthorizeAttribute : Attribute, IAsyncAuthorizationFilter
     public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
     {
         HttpRequest request = context.HttpContext.Request;
-        string token = request.Headers.Authorization.ToString().Split(' ').Last();
+        string? token = TokenExtractor.ExtractToken(request.Headers);
+        if (string.IsNullOrWhiteSpace(token))
+        {
+            context.Result = new UnauthorizedResult();
+            return;
+        }
 
         HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, AuthenticationAccessUrl);
         requestMessage.Headers.Authorization = new AuthenticationHeaderValue(AuthenticationScheme, token);

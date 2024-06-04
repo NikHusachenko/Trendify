@@ -3,9 +3,9 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace Trendify.Api.Services.HttServices;
 
-public static class TokenExecutor
+public static class TokenExtractor
 {
-    public static string? ExecuteToken(IHeaderDictionary headers)
+    public static string? ExtractToken(IHeaderDictionary headers)
     {
         if (!headers.TryGetValue("Authorization", out var tokenHeader))
             return null;
