@@ -2,6 +2,8 @@
 
 public sealed record ProductWorkshopsEntity : BaseEntity
 {
+    public int Count { get; set; }
+
     public Guid ProductId { get; set; }
     public ProductEntity Product { get; set; }
 

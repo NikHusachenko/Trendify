@@ -27,10 +27,17 @@ public abstract class BaseController(IMediator mediator) : ControllerBase
 
     protected const string OrderControllerRoute = "api/workshop/{workshopId:guid}/order";
 
+    protected const string UpdateProductNameRoute = "{id:guid}/update/name";
+    protected const string UpdateProductDescriptionRoute = "{id:guid}/update/description";
+    protected const string UpdateProductShortDescriptionRoute = "{id:guid}/update/short-description";
+    protected const string AppendMaterialToProductRoute = "{id:guid}/material/append";
+    protected const string RemoveMaterialFromProductRoute = "{id:guid}/material/remove";
+
     protected const string AuthenticationControllerRoute = "api/authentication";
     protected const string SignInRoute = "sign-in";
     protected const string SignUpRoute = "sign-up";
 
+    protected const string ProductControllerRoute = "api/product";
     protected const string NewBaseRoute = "new";
     protected const string DeleteBaseRoute = "{id:guid}/delete";
     protected const string RegisterBaseNew = "register-new";
