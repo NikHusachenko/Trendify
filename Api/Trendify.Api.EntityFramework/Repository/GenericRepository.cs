@@ -54,16 +54,15 @@ public sealed class GenericRepository<T> : IGenericRepository<T> where T : BaseE
             .Where(predicate)
             .AsNoTracking();
 
-    public async Task<T?> GetBy(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default) =>
+    public async Task<T?> GetBy(Expression<Func<T, bool>> predicate) =>
         await _table
             .Where(entity => !entity.DeletedAt.HasValue)
-            .FirstOrDefaultAsync(predicate, cancellationToken);
+            .FirstOrDefaultAsync(predicate);
 
-    public async Task<T?> GetById(Guid id, CancellationToken cancellationToken = default) =>
+    public async Task<T?> GetById(Guid id) =>
         await _table.FirstOrDefaultAsync(entity => 
             entity.Id == id &&
-            !entity.DeletedAt.HasValue,
-            cancellationToken);
+            !entity.DeletedAt.HasValue);
 
     public async Task Update(T entity)
     {

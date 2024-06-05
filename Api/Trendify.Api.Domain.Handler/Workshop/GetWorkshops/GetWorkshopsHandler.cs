@@ -10,5 +10,8 @@ public sealed class GetWorkshopsHandler(
     : IRequestHandler<GetWorkshopsRequest, List<WorkshopEntity>>
 {
     public async Task<List<WorkshopEntity>> Handle(GetWorkshopsRequest request, CancellationToken cancellationToken) =>
-        await repository.GetAll().ToListAsync();
+        await repository.GetAll()
+            .Include(workshop => workshop.Supplies)
+                .ThenInclude(supply => supply.Materials)
+            .ToListAsync();
 }

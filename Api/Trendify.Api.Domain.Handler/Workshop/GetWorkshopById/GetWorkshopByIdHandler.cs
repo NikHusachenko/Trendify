@@ -13,7 +13,7 @@ public sealed class GetWorkshopByIdHandler(
     private const string WorkshopNotFoundError = "Workshop not found.";
 
     public async Task<Result<WorkshopEntity>> Handle(GetWorkshopByIdRequest request, CancellationToken cancellationToken) =>
-        await repository.GetById(request.Id, cancellationToken)
+        await repository.GetById(request.Id)
             .Map(entity => entity is null ?
                 Result<WorkshopEntity>.Error(WorkshopNotFoundError) :
                 Result<WorkshopEntity>.Success(entity));

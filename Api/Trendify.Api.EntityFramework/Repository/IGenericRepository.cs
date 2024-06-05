@@ -12,8 +12,8 @@ public interface IGenericRepository<T> where T : BaseEntity
     Task DeleteSoft(T entity);
     Task DeleteHard(T entity);
 
-    Task<T?> GetById(Guid id, CancellationToken cancellationToken = default);
-    Task<T?> GetBy(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default);
+    Task<T?> GetById(Guid id);
+    Task<T?> GetBy(Expression<Func<T, bool>> predicate);
     IQueryable<T> GetAll();
     IQueryable<T> GetAllBy(Expression<Func<T, bool>> predicate);
 }

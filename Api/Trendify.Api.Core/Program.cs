@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 using Trendify.Api.Domain.Handler.Supplier.NewSupplier;
 using Trendify.Api.EntityFramework;
 using Trendify.Api.EntityFramework.Repository;
@@ -6,7 +7,11 @@ using Trendify.Api.EntityFramework.Repository;
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
-services.AddControllers();
+services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+});
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 

@@ -13,7 +13,7 @@ public sealed class CompleteSupplyHandler(
     private const string SupplyNotFountError = "Supply not found.";
 
     public async Task<Result> Handle(CompleteSupplyRequest request, CancellationToken cancellationToken) =>
-        await repository.GetBy(entity => entity.Id == request.Id, cancellationToken)
+        await repository.GetBy(entity => entity.Id == request.Id)
             .Map(entity => entity is null ?
                 Result<SupplyEntity>.Error(SupplyNotFountError) :
                 Result<SupplyEntity>.Success(entity))

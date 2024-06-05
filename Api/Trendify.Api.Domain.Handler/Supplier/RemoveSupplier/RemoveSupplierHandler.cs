@@ -13,7 +13,7 @@ public sealed class RemoveSupplierHandler(
     private const string SupplierNotFoundError = "Supplier not found.";
 
     public async Task<Result> Handle(RemoveSupplierRequest request, CancellationToken cancellationToken) =>
-        await repository.GetById(request.SupplierId, cancellationToken)
+        await repository.GetById(request.SupplierId)
             .Map(entity => entity is null ?
                 Result<SupplierEntity>.Error(SupplierNotFoundError) :
                 Result<SupplierEntity>.Success(entity))
