@@ -19,6 +19,7 @@ public sealed class ApplicationDbContext : DbContext
     public DbSet<CredentialsEntity> Credentials { get; set; }
     public DbSet<AuthenticationTokenEntity> AuthenticationTokens { get; set; }
     public DbSet<MaterialOrdersEntity> MaterialOrders { get; set; }
+    public DbSet<ProductMaterialsEntity> ProductMaterials { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
@@ -40,5 +41,6 @@ public sealed class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new CredentialsConfiguration());
         modelBuilder.ApplyConfiguration(new AuthenticationTokenConfiguration());
         modelBuilder.ApplyConfiguration(new MaterialOrdersConfiguration());
+        modelBuilder.ApplyConfiguration(new ProductMaterialConfiguration());
     }
 }

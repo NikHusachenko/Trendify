@@ -97,18 +97,18 @@ public static class Try
         return Result.Success();
     }
 
-    public static async Task<Result> TryExecuteAsync<TIn>(this TIn arg, Func<TIn, Task> action)
+    public static async Task<Result> TryExecuteAsync<TIn>(this TIn arg, Func<TIn, Task> action, string? errorMessage = default)
     {
         try
         {
-            await Task.Run(() =>
+            await Task.Run(async () =>
             {
-                action(arg);
+                await action(arg);
             });
         }
         catch (Exception ex)
         {
-            return Result.Error(ex);
+            return Result.Error(string.IsNullOrEmpty(errorMessage) ? ex.Message : errorMessage!);
         }
         return Result.Success();
     }
