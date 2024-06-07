@@ -30,7 +30,8 @@ public sealed class CanProduceProductHandler(
     private async Task<Dictionary<Guid, int>> GetMaterialQuantitiesAsync(Guid workshopId, IEnumerable<Guid> materialIds)
     {
         var supplies = await supplyRepository.GetAll()
-            .Where(s => s.WorkshopId == workshopId)
+            .Where(s => s.WorkshopId == workshopId &&
+                s.DeliveredAt.HasValue)
             .Include(s => s.Materials)
             .ToListAsync();
 
@@ -38,7 +39,7 @@ public sealed class CanProduceProductHandler(
             .SelectMany(s => s.Materials)
             .Where(dm => materialIds.Contains(dm.MaterialId))
             .GroupBy(dm => dm.MaterialId)
-            .ToDictionary(g => g.Key, g => g.Sum(dm => dm.Count));
+            .ToDictionary(g => g.Key, g => g.Sum(dm => dm.Left));
     }
 
     private bool HasSufficientMaterials(Dictionary<Guid, int> requiredMaterials, Dictionary<Guid, int> materialQuantities)
@@ -68,8 +69,8 @@ public sealed class CanProduceProductHandler(
             {
                 if (remainingRequiredMaterials.TryGetValue(deliveryMaterial.MaterialId, out var requiredCount))
                 {
-                    var usedCount = Math.Min(deliveryMaterial.Count, requiredCount);
-                    deliveryMaterial.Count -= usedCount;
+                    var usedCount = Math.Min(deliveryMaterial.Left, requiredCount);
+                    deliveryMaterial.Left -= usedCount;
                     requiredCount -= usedCount;
                     remainingRequiredMaterials[deliveryMaterial.MaterialId] = requiredCount;
 

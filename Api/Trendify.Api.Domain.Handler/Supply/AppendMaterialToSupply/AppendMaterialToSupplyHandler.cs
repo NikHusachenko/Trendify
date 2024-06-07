@@ -13,7 +13,7 @@ public sealed class AppendMaterialToSupplyHandler(
     public async Task<Result> Handle(AppendMaterialToSupplyRequest request, CancellationToken cancellationToken) =>
         await new DeliveryMaterialEntity()
         {
-            Count = request.Count,
+            Left = request.Count,
             MaterialId = request.MaterialId,
             SupplyId = request.SupplyId,
         }.TryExecute(repository.Create);

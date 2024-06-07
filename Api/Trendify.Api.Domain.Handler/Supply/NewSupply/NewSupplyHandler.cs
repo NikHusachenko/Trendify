@@ -36,7 +36,8 @@ public sealed class NewSupplyHandler(
         List<DeliveryMaterialEntity> deliveryMaterials = request.Materials.Select(x => new DeliveryMaterialEntity()
         {
             MaterialId = x.id,
-            Count = x.count,
+            Left = x.count,
+            Delivered = x.count,
             SupplyId = entity.Id,
         }).ToList();
 

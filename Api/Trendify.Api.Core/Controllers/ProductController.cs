@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Trendify.Api.Core.Attributes;
 using Trendify.Api.Core.Models.Product;
-using Trendify.Api.Domain.Handler.Material.AppendMaterial;
-using Trendify.Api.Domain.Handler.Material.RemoveMaterial;
+using Trendify.Api.Domain.Handler.Product.AppendMaterial;
 using Trendify.Api.Domain.Handler.Product.Get;
 using Trendify.Api.Domain.Handler.Product.GetById;
 using Trendify.Api.Domain.Handler.Product.New;
+using Trendify.Api.Domain.Handler.Product.RemoveMaterial;
 using Trendify.Api.Domain.Handler.Product.UpdateDescription;
 using Trendify.Api.Domain.Handler.Product.UpdateName;
 using Trendify.Api.Domain.Handler.Product.UpdateShortDescription;

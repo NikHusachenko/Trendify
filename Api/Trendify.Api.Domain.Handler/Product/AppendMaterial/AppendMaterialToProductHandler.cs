@@ -4,7 +4,7 @@ using Trendify.Api.EntityFramework.Repository;
 using Trendify.Api.Services.Extensions;
 using Trendify.Api.Services.Response;
 
-namespace Trendify.Api.Domain.Handler.Material.AppendMaterial;
+namespace Trendify.Api.Domain.Handler.Product.AppendMaterial;
 
 public sealed class AppendMaterialToProductHandler(
     IGenericRepository<ProductMaterialsEntity> repository)
@@ -12,7 +12,7 @@ public sealed class AppendMaterialToProductHandler(
 {
 
     private const string AppendError = "Error while append material to product.";
-    
+
     public async Task<Result> Handle(AppendMaterialToProductRequest request, CancellationToken cancellationToken)
     {
         ProductMaterialsEntity? dbRecord = await repository.GetBy(
