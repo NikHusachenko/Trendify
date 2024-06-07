@@ -20,6 +20,8 @@ public abstract class BaseController(IMediator mediator) : ControllerBase
     protected const string MaterialControllerRoute = "api/material";
 
     protected const string WorkshopControllerRoute = "api/workshop";
+    protected const string CanProduceProduceRoute = "{id:guid}/can-produce/{productId:guid}";
+    protected const string ProduceProductRoute = "{id:guid}/produce";
     protected const string WorkshopMaterialsRoute = "{id:guid}/materials";
     protected const string UpdateWorkshopNameRoute = "{id:guid}/update/name";
     protected const string UpdateWorkshopInfoRoute = "{id:guid}/update/info";

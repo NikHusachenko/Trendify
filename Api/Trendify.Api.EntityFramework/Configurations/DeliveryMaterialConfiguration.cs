@@ -8,14 +8,14 @@ public sealed class DeliveryMaterialConfiguration : IEntityTypeConfiguration<Del
 {
     public void Configure(EntityTypeBuilder<DeliveryMaterialEntity> builder)
     {
-        builder.ToTable("Delivery materials").HasKey(dm => new { dm.SupplyId, dm.MaterialId });
+        builder.ToTable("Delivery materials").HasKey(delivery => delivery.Id);
 
-        builder.HasOne<MaterialEntity>(dm => dm.Material)
+        builder.HasOne<MaterialEntity>(delivery => delivery.Material)
             .WithMany(material => material.Supplies)
-            .HasForeignKey(dm => dm.MaterialId);
+            .HasForeignKey(delivery => delivery.MaterialId);
 
-        builder.HasOne<SupplyEntity>(dm => dm.Supply)
+        builder.HasOne<SupplyEntity>(delivery => delivery.Supply)
             .WithMany(supply => supply.Materials)
-            .HasForeignKey(dm => dm.SupplyId);
+            .HasForeignKey(delivery => delivery.SupplyId);
     }
 }

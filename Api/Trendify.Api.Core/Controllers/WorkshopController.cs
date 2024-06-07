@@ -6,6 +6,7 @@ using Trendify.Api.Domain.Handler.Material.GetMaterialsByWorkshop;
 using Trendify.Api.Domain.Handler.Workshop.GetWorkshopById;
 using Trendify.Api.Domain.Handler.Workshop.GetWorkshops;
 using Trendify.Api.Domain.Handler.Workshop.NewWorkshop;
+using Trendify.Api.Domain.Handler.Workshop.ProduceProduct;
 using Trendify.Api.Domain.Handler.Workshop.Remove;
 using Trendify.Api.Domain.Handler.Workshop.UpdateInfo;
 using Trendify.Api.Domain.Handler.Workshop.UpdateName;
@@ -27,6 +28,13 @@ public sealed class WorkshopController(IMediator mediator) : BaseController(medi
             AsError(result.ErrorMessage!) :
             AsSuccess(result.Value));
 
+    [HttpPost(ProduceProductRoute)]
+    public async Task<IActionResult> Produce([FromRoute] Guid id, [FromBody] ProduceProductApiRequest request) =>
+        await SendRequest(new ProduceProductRequest(id, request.ProductId))
+            .Map(result => result.IsError ?
+                AsError(result.ErrorMessage!) :
+                AsSuccess());
+    
     [HttpGet(GetByIdBaseRoute)]
     public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken cancellationToken = default) =>
         await SendRequest(new GetWorkshopByIdRequest(id), cancellationToken)

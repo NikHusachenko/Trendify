@@ -3,7 +3,7 @@
 public sealed record DeliveryMaterialEntity : BaseEntity
 {
     public int Count { get; set; }
-
+    
     public Guid SupplyId { get; set; }
     public SupplyEntity Supply { get; set; }
 

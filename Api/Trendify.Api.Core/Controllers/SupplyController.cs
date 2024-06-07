@@ -30,13 +30,6 @@ public class SupplyController(IMediator mediator) : BaseController(mediator)
                 AsSuccess(result.Value));
     }
 
-    [HttpDelete(DeleteBaseRoute)]
-    public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken cancellationToken = default) =>
-        await SendRequest(new DeleteSupplyRequest(id), cancellationToken)
-            .Map(result => result.IsError ?
-                AsError(result.ErrorMessage!) :
-                AsSuccess());
-
     [HttpGet(GetAllBaseRoute)]
     public async Task<IActionResult> GetAll([FromRoute] Guid supplierId) =>
         await SendRequest(new GetSuppliesRequest(supplierId))
@@ -71,4 +64,11 @@ public class SupplyController(IMediator mediator) : BaseController(mediator)
         .Map(result => result.IsError ?
             AsError(result.ErrorMessage!) :
             AsSuccess());
+
+    [HttpDelete(DeleteBaseRoute)]
+    public async Task<IActionResult> Delete([FromRoute] Guid id, CancellationToken cancellationToken = default) =>
+        await SendRequest(new DeleteSupplyRequest(id), cancellationToken)
+            .Map(result => result.IsError ?
+                AsError(result.ErrorMessage!) :
+                AsSuccess());
 }
