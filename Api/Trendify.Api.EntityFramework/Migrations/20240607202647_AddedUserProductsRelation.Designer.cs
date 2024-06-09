@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Trendify.Api.EntityFramework;
@@ -11,9 +12,11 @@ using Trendify.Api.EntityFramework;
 namespace Trendify.Api.EntityFramework.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240607202647_AddedUserProductsRelation")]
+    partial class AddedUserProductsRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,9 +94,6 @@ namespace Trendify.Api.EntityFramework.Migrations
 
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -361,6 +361,9 @@ namespace Trendify.Api.EntityFramework.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<Guid>("CredentialsId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -372,6 +375,9 @@ namespace Trendify.Api.EntityFramework.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CredentialsId")
+                        .IsUnique();
 
                     b.ToTable("Suppliers", (string)null);
                 });
@@ -457,8 +463,10 @@ namespace Trendify.Api.EntityFramework.Migrations
 
             modelBuilder.Entity("Trendify.Api.Database.Entities.UserProductsEntity", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ProductId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -467,20 +475,15 @@ namespace Trendify.Api.EntityFramework.Migrations
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("ProductId")
+                    b.Property<Guid>("Id")
                         .HasColumnType("uuid");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId", "ProductId");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("User Products", (string)null);
                 });
@@ -641,6 +644,17 @@ namespace Trendify.Api.EntityFramework.Migrations
                     b.Navigation("Workshop");
                 });
 
+            modelBuilder.Entity("Trendify.Api.Database.Entities.SupplierEntity", b =>
+                {
+                    b.HasOne("Trendify.Api.Database.Entities.CredentialsEntity", "Credentials")
+                        .WithOne()
+                        .HasForeignKey("Trendify.Api.Database.Entities.SupplierEntity", "CredentialsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Credentials");
+                });
+
             modelBuilder.Entity("Trendify.Api.Database.Entities.SupplyEntity", b =>
                 {
                     b.HasOne("Trendify.Api.Database.Entities.SupplierEntity", "Supplier")
@@ -663,7 +677,7 @@ namespace Trendify.Api.EntityFramework.Migrations
             modelBuilder.Entity("Trendify.Api.Database.Entities.UserEntity", b =>
                 {
                     b.HasOne("Trendify.Api.Database.Entities.CredentialsEntity", "Credentials")
-                        .WithOne("User")
+                        .WithOne()
                         .HasForeignKey("Trendify.Api.Database.Entities.UserEntity", "CredentialsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -701,9 +715,6 @@ namespace Trendify.Api.EntityFramework.Migrations
             modelBuilder.Entity("Trendify.Api.Database.Entities.CredentialsEntity", b =>
                 {
                     b.Navigation("AuthenticationTokens");
-
-                    b.Navigation("User")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Trendify.Api.Database.Entities.MaterialEntity", b =>

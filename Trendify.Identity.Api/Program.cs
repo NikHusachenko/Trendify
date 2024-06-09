@@ -3,6 +3,7 @@ using Trendify.Api.EntityFramework;
 using Trendify.Api.EntityFramework.Repository;
 using Trendify.Identity.Api.Services.AuthenticationServices;
 using Trendify.Identity.Api.Services.JwtTokenServices;
+using Trendify.Identity.Api.Services.UserServices;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -24,8 +25,10 @@ services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 services.Configure<JwtOptions>(builder.Configuration.GetSection("JwtOptions"));
 
+services.AddHttpContextAccessor();
 services.AddTransient<IJwtTokenService, JwtTokenService>();
 services.AddTransient<IAuthenticationService, AuthenticationService>();
+services.AddScoped<ICurrentUserContext, CurrentUserContext>();
 
 var app = builder.Build();
 

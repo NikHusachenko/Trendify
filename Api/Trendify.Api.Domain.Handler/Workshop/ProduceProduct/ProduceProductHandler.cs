@@ -4,6 +4,7 @@ using Trendify.Api.Database.Entities;
 using Trendify.Api.Domain.Handler.Workshop.ProduceProduct;
 using Trendify.Api.EntityFramework.Repository;
 using Trendify.Api.Services.Response;
+using Trendify.Api.Services.UserServices;
 
 namespace Trendify.Api.Domain.Handler.Workshop.ProduceProduct;
 
@@ -11,11 +12,12 @@ public sealed class CanProduceProductHandler(
     IGenericRepository<ProductEntity> productRepository,
     IGenericRepository<SupplyEntity> supplyRepository,
     IGenericRepository<ProductWorkshopsEntity> productWorkshopRepository,
-    IGenericRepository<DeliveryMaterialEntity> deliveryRepository)
+    IGenericRepository<DeliveryMaterialEntity> deliveryRepository,
+    IGenericRepository<UserProductsEntity> userProductRepository,
+    ICurrentUserContext currentUserContext)
     : IRequestHandler<ProduceProductRequest, Result>
 {
     private const string ProductNotFoundError = "Product not found.";
-    private const string WorkshopNotFoundError = "Workshop not found.";
     private const string MaterialNotAvailableError = "Material Not Available.";
     private const string ProducingError = "Error while producing product.";
 
@@ -137,6 +139,25 @@ public sealed class CanProduceProductHandler(
             {
                 return Result.Error(ProducingError);
             }
+        }
+
+        Result<UserEntity> currentUserResult = await currentUserContext.GetCurrentUser();
+        if (currentUserResult.IsError)
+        {
+            return Result.Error(currentUserResult.Err);
+        }
+
+        try
+        {
+            await userProductRepository.Create(new UserProductsEntity()
+            {
+                ProductId = productId,
+                UserId = currentUserResult.Value.Id,
+            });
+        }
+        catch
+        {
+
         }
 
         return Result.Success();

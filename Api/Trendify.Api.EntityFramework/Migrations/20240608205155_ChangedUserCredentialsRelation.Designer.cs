@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Trendify.Api.EntityFramework;
@@ -11,9 +12,11 @@ using Trendify.Api.EntityFramework;
 namespace Trendify.Api.EntityFramework.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240608205155_ChangedUserCredentialsRelation")]
+    partial class ChangedUserCredentialsRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -361,6 +364,9 @@ namespace Trendify.Api.EntityFramework.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<Guid>("CredentialsId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -372,6 +378,9 @@ namespace Trendify.Api.EntityFramework.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CredentialsId")
+                        .IsUnique();
 
                     b.ToTable("Suppliers", (string)null);
                 });
@@ -639,6 +648,17 @@ namespace Trendify.Api.EntityFramework.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Workshop");
+                });
+
+            modelBuilder.Entity("Trendify.Api.Database.Entities.SupplierEntity", b =>
+                {
+                    b.HasOne("Trendify.Api.Database.Entities.CredentialsEntity", "Credentials")
+                        .WithOne()
+                        .HasForeignKey("Trendify.Api.Database.Entities.SupplierEntity", "CredentialsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Credentials");
                 });
 
             modelBuilder.Entity("Trendify.Api.Database.Entities.SupplyEntity", b =>

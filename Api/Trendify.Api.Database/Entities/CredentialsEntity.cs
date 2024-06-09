@@ -8,5 +8,8 @@ public sealed record CredentialsEntity : BaseEntity
     public string Salt { get; set; } = string.Empty;
     public string Scope { get; set; } = string.Empty;
 
+    public Guid UserId { get; set; }
+    public UserEntity User { get; set; }
+
     public List<AuthenticationTokenEntity> AuthenticationTokens { get; set; } = new List<AuthenticationTokenEntity>();
 }

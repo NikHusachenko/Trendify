@@ -2,12 +2,15 @@
 using Trendify.Api.Services.Extensions;
 using Trendify.Identity.Api.Services.AuthenticationServices;
 using Trendify.Identity.Api.Services.AuthenticationServices.Models;
+using Trendify.Identity.Api.Services.UserServices;
 
 namespace Trendify.Identity.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AuthenticationController(IAuthenticationService authenticationService) : ControllerBase
+public class AuthenticationController(
+    IAuthenticationService authenticationService,
+    ICurrentUserContext currentUserContext) : ControllerBase
 {
     [HttpPost("sign-in")]
     public async Task<IActionResult> SignIn([FromBody] SignInCredentials credentials) =>
@@ -49,4 +52,26 @@ public class AuthenticationController(IAuthenticationService authenticationServi
                     }) :
                     NoContent() as IActionResult);
 
+    [HttpGet("current-user")]
+    public async Task<IActionResult> CurrentUser()
+    {
+        var a = HttpContext;
+
+        return await currentUserContext.CurrentUser()
+            .Map(result => result.IsError ?
+                BadRequest(new
+                {
+                    errorMessage = result.ErrorMessage!
+                }) :
+                Ok(new
+                {
+                    result.Value.Id,
+                    result.Value.FirstName,
+                    result.Value.LastName,
+                    result.Value.MiddleName,
+                    result.Value.Type,
+                    result.Value.Credentials.Login,
+                    result.Value.Credentials.Email
+                }) as IActionResult);
+    }
 }

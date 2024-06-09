@@ -15,5 +15,6 @@ namespace Trendify.Api.Database.Enums
         AdministrationWorker = 9,
         MarketingWorker = 10,
         AccountingWorker = 11,
+        Employee = 12,
     }
 }

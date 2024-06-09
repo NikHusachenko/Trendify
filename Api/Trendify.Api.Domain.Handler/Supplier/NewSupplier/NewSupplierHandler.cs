@@ -34,8 +34,7 @@ public sealed class NewSupplierHandler(
         SupplierEntity dbRecord = new SupplierEntity()
         {
             Address = request.Address,
-            Name = request.Name,
-            CredentialsId = credentials.Id,
+            Name = request.Name
         };
 
         try

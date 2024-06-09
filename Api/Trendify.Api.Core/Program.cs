@@ -3,6 +3,7 @@ using System.Text.Json.Serialization;
 using Trendify.Api.Domain.Handler.Supplier.NewSupplier;
 using Trendify.Api.EntityFramework;
 using Trendify.Api.EntityFramework.Repository;
+using Trendify.Api.Services.UserServices;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -26,6 +27,7 @@ services.AddSignalR();
 services.AddMediatR(configuration => configuration.RegisterServicesFromAssembly(typeof(NewSupplierRequest).Assembly));
 
 services.AddHttpContextAccessor();
+services.AddScoped<ICurrentUserContext, CurrentUserContext>();
 
 var app = builder.Build();
 

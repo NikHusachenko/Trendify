@@ -12,4 +12,5 @@ public sealed record ProductEntity : BaseEntity
     public List<ProductMaterialsEntity> Materials { get; set; } = new List<ProductMaterialsEntity>();
     public List<ProductImageEntity> Images { get; set; } = new List<ProductImageEntity>();
     public List<ProductWorkshopsEntity> Workshops { get; set; } = new List<ProductWorkshopsEntity>();
+    public List<UserProductsEntity> Producers { get; set; } = new List<UserProductsEntity>();
 }

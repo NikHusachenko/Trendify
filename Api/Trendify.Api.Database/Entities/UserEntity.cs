@@ -14,4 +14,6 @@ public sealed record UserEntity : BaseEntity
 
     public Guid WorkshopId { get; set; }
     public WorkshopEntity Workshop { get; set; }
+
+    public List<UserProductsEntity> Products { get; set; } = new List<UserProductsEntity>();
 }

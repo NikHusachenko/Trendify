@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Trendify.Api.Services.Response;
 
 namespace Trendify.Api.Services.HttServices;
 

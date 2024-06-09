@@ -23,13 +23,11 @@ public class IdentityAuthorizeAttribute : Attribute, IAsyncAuthorizationFilter
         HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, AuthenticationAccessUrl);
         requestMessage.Headers.Authorization = new AuthenticationHeaderValue(AuthenticationScheme, token);
 
-        using (HttpClient httpClient = new HttpClient())
+        using HttpClient httpClient = new HttpClient();
+        HttpResponseMessage response = await httpClient.SendAsync(requestMessage);
+        if (!response.IsSuccessStatusCode)
         {
-            HttpResponseMessage response = await httpClient.SendAsync(requestMessage);
-            if (!response.IsSuccessStatusCode)
-            {
-                context.Result = new UnauthorizedResult();
-            }
+            context.Result = new UnauthorizedResult();
         }
     }
 }
