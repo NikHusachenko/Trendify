@@ -4,9 +4,9 @@ using System.Text;
 using Trendify.Api.Database.Entities;
 using Trendify.Api.EntityFramework.Repository;
 using Trendify.Api.Services.Response;
-using Trendify.Api.Domain.Handler.Authentication.SignUp.Models;
 using Trendify.Api.Services.Extensions;
 using Trendify.Api.Database.Enums;
+using Trendify.Api.Domain.Handler.Authentication.Models;
 
 namespace Trendify.Api.Domain.Handler.Authentication.SignUp;
 

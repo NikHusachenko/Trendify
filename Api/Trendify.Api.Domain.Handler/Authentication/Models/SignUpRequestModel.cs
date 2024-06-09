@@ -1,4 +1,4 @@
-﻿namespace Trendify.Api.Domain.Handler.Authentication.SignUp.Models;
+﻿namespace Trendify.Api.Domain.Handler.Authentication.Models;
 
 internal sealed record SignUpRequestModel
 {
