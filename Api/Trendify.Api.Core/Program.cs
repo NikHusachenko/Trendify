@@ -17,6 +17,16 @@ services.AddControllers().AddJsonOptions(options =>
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
+services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("https://localhost:7015")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
+
 services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetSection("ConnectionStrings:DefaultConnection").Value);
@@ -43,4 +53,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.UseCors();
 app.Run();

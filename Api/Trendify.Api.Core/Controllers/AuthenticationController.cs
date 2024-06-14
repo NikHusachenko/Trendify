@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Trendify.Api.Core.Models.Authentication;
+using Trendify.Api.Domain.Handler.Authentication.CurrentUser;
 using Trendify.Api.Domain.Handler.Authentication.SignIn;
 using Trendify.Api.Domain.Handler.Authentication.SignUp;
 using Trendify.Api.Services.Extensions;
@@ -20,6 +21,13 @@ public sealed class AuthenticationController(IMediator mediator) : BaseControlle
     [HttpPost(SignUpRoute)]
     public async Task<IActionResult> SignUp([FromBody] SignUpApiRequest request) =>
         await SendRequest(new SignUpRequest(request.FirstName, request.LastName, request.MiddleName, request.Login, request.Password, request.WorkshopId))
+            .Map(result => result.IsError ?
+                AsError(result.ErrorMessage!) :
+                AsSuccess(result.Value));
+
+    [HttpGet(CurrentUserRoute)]
+    public async Task<IActionResult> GetCurrentUser() =>
+        await SendRequest(new GetCurrentUserRequest())
             .Map(result => result.IsError ?
                 AsError(result.ErrorMessage!) :
                 AsSuccess(result.Value));

@@ -7689,7 +7689,7 @@ sub {
     .nav-header .brand-title {
       display: none; }
   .header-left {
-    margin-left: 1.875rem; }
+     }
     [direction="rtl"] .header-left {
       margin-left: auto;
       margin-right: 1.875rem; }
@@ -7732,7 +7732,6 @@ sub {
 
 .header-left {
   float: left;
-  margin-left: 50px;
   height: 100%; }
   .header-left .icons {
     float: left;

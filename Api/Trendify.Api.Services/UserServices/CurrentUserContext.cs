@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using System.Net;
 using Trendify.Api.Database.Entities;
 using Trendify.Api.Services.HttServices;
 using Trendify.Api.Services.Response;
