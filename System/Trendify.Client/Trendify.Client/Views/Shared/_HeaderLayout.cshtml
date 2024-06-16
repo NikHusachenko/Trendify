@@ -208,10 +208,14 @@
 
 </div>
 
-@RenderSection("Scripts", false);
-
 @section Scripts {
+    @await RenderSectionAsync("Scripts", false)
     <script>
+        let username = localStorage.getItem('username');
+        if (username == undefined || username == null) {
+            location.href = "@Url.Action("SignIn", "Authentication")"
+        }
+
         let token = localStorage.getItem('token')
         if (token == undefined || token == null) {
             location.href = "@Url.Action("SignIn", "Authentication")"
@@ -224,7 +228,7 @@
             method: 'get',
             headers: {
                 "Authentication" : "Bearer" + token
-            }
+            },
             success: (response) => {
                 console.log(response)
                 $('#preloader').fadeOut();

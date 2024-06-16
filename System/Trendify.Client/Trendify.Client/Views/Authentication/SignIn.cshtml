@@ -1,11 +1,48 @@
 ﻿@{
-    Layout = "_MasterLayout";
+    Layout = "_Layout";
 }
 
-<div class="row">
-    <div class="col">
-        <div class="alert alert-danger">
-            Authentication page
+<div class="d-flex" style="height: 100vh; justify-content: center">
+    <div style="align-items: center" class="d-flex">
+        <div class="card" style="border-radius: 10px; min-width: 700px">
+            <div class="card-header">
+                <h4>Sign in</h4>
+            </div>
+            <div class="card-body">
+                <input id="login" type="text" class="form-control" placeholder="Login" style="margin-bottom: 5px" />
+                <input id="password" type="password" class="form-control" placeholder="Password" style="margin-bottom: 5px" />
+            </div>
+            <div class="card-footer">
+                <input id="login-button" type="button" class="btn btn-success" value="Sign in" />
+            </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $('#login-button').on('click', () => {
+            let data = {
+                login: $('#login').val(),
+                password: $('#password').val()
+            }
+
+            let jsonData = JSON.stringify(data)
+
+            $.ajax({
+                url: 'https://localhost:7054/api/authentication/sign-in',
+                method: 'post',
+                data: jsonData,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: (response) => {
+                    console.log(response)
+                },
+                error: (response) => {
+                    // TODO 
+                    alert("Login error");
+                }
+            })
+        });
+    </script>
+}
