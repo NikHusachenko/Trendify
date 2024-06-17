@@ -38,6 +38,32 @@
                 contentType: 'application/json; charset=utf-8',
                 success: (response) => {
                     console.log(response)
+                    localStorage.setItem('token', response.value)
+
+                    let token = localStorage.getItem('token')
+                    if (token == undefined || token == null) {
+                        console.log("Error")
+                    }
+
+                    console.log(token)
+
+                    let item = document.getElementById('user-name')
+
+                    $.ajax({
+                        url: 'https://localhost:7054/api/authentication/current-user',
+                        method: 'get',
+                        headers: {
+                            "Authentication": "Bearer " + token
+                        },
+                        success: (response) => {
+                            console.log(response)
+                            localStorage.setItem('username', response.firstName + " " + response.lastName)
+                            location.href = "@Url.Action("Index", "Home")"
+                        },
+                        error: (response) => {
+                            console.log("Error")
+                        }
+                    })
                 },
                 error: (response) => {
                     // TODO 

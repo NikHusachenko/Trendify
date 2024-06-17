@@ -16,7 +16,7 @@ public sealed class AuthenticationController(IMediator mediator) : BaseControlle
         await SendRequest(new SignInRequest(request.Login, request.Password))
             .Map(result => result.IsError ?
                 AsError(result.ErrorMessage!) :
-                AsSuccess(result.Value));
+                AsSuccess(result));
 
     [HttpPost(SignUpRoute)]
     public async Task<IActionResult> SignUp([FromBody] SignUpApiRequest request) =>
