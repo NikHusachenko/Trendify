@@ -220,17 +220,15 @@
         if (token == undefined || token == null) {
             location.href = "@Url.Action("SignIn", "Authentication")"
         }
-        
-        let item = document.getElementById('user-name')
 
         $.ajax({
             url: 'https://localhost:7054/api/authentication/current-user',
             method: 'get',
             headers: {
-                "Authentication" : "Bearer" + token
+                "Authentication" : "Bearer " + token
             },
             success: (response) => {
-                console.log(response)
+                document.getElementById('user-name').innerHTML = username
                 $('#preloader').fadeOut();
             },
             error: (response) => {

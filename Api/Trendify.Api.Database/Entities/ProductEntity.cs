@@ -8,6 +8,7 @@ public sealed record ProductEntity : BaseEntity
     public string Description { get; set; } = string.Empty;
     public string ShortDescription { get; set; } = string.Empty;
     public float Price { get; set; }
+    public ItemCondition State { get; set; }
 
     public List<ProductMaterialsEntity> Materials { get; set; } = new List<ProductMaterialsEntity>();
     public List<ProductImageEntity> Images { get; set; } = new List<ProductImageEntity>();

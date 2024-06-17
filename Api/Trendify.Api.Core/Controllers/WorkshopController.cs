@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Trendify.Api.Core.Attributes;
 using Trendify.Api.Core.Models.Workshop;
 using Trendify.Api.Domain.Handler.Material.GetMaterialsByWorkshop;
+using Trendify.Api.Domain.Handler.Workshop.GetSelectedList;
 using Trendify.Api.Domain.Handler.Workshop.GetWorkshopById;
 using Trendify.Api.Domain.Handler.Workshop.GetWorkshops;
 using Trendify.Api.Domain.Handler.Workshop.NewWorkshop;
@@ -46,6 +47,14 @@ public sealed class WorkshopController(IMediator mediator) : BaseController(medi
     public async Task<IActionResult> GetAll(CancellationToken cancellationToken = default) =>
         await SendRequest(new GetWorkshopsRequest(), cancellationToken)
             .Map(list => list.Any() ?
+                AsSuccess(list) :
+                AsSuccess());
+
+    [IdentityAnonymous]
+    [HttpGet(GetSelectedListBaseRoute)]
+    public async Task<IActionResult> GetSelectedList() =>
+        await SendRequest(new GetWorkshopSelectedListRequest())
+            .Map(list => list.Items.Any() ?
                 AsSuccess(list) :
                 AsSuccess());
 

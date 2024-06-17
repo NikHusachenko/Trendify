@@ -53,11 +53,8 @@ public class AuthenticationController(
                     NoContent() as IActionResult);
 
     [HttpGet("current-user")]
-    public async Task<IActionResult> CurrentUser()
-    {
-        var a = HttpContext;
-
-        return await currentUserContext.CurrentUser()
+    public async Task<IActionResult> CurrentUser() =>
+         await currentUserContext.CurrentUser()
             .Map(result => result.IsError ?
                 BadRequest(new
                 {
@@ -73,5 +70,4 @@ public class AuthenticationController(
                     result.Value.Credentials.Login,
                     result.Value.Credentials.Email
                 }) as IActionResult);
-    }
 }

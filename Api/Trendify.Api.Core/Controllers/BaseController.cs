@@ -45,6 +45,7 @@ public abstract class BaseController(IMediator mediator) : ControllerBase
     protected const string DeleteBaseRoute = "{id:guid}/delete";
     protected const string RegisterBaseNew = "register-new";
     protected const string GetAllBaseRoute = "get/all";
+    protected const string GetSelectedListBaseRoute = "get/list";
     protected const string GetByIdBaseRoute = "get/{id:guid}";
 
     protected async Task<T> SendRequest<T>(IRequest<T> request, CancellationToken cancellationToken = default) =>

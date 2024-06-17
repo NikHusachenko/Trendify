@@ -12,6 +12,11 @@ public class IdentityAuthorizeAttribute : Attribute, IAsyncAuthorizationFilter
 
     public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
     {
+        if (context.ActionDescriptor.EndpointMetadata.OfType<IdentityAnonymousAttribute>().Any())
+        {
+            return;
+        }
+
         HttpRequest request = context.HttpContext.Request;
         string? token = TokenExtractor.ExtractToken(request.Headers);
         if (string.IsNullOrWhiteSpace(token))

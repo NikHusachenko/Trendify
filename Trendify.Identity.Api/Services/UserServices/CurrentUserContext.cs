@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using Trendify.Api.Database.Entities;
 using Trendify.Api.EntityFramework.Repository;
 using Trendify.Api.Services.Extensions;
@@ -36,8 +37,11 @@ public sealed class CurrentUserContext : ICurrentUserContext
             return Result<UserEntity>.Error(CONTEXT_NOT_AVAILABLE_ERROR);
         }
 
-        UserEntity? dbRecord = await _repository.GetBy(entity => entity.Credentials.AuthenticationTokens
-            .FirstOrDefault(t => t.Token == token) != null);
+        UserEntity? dbRecord = await _repository.GetAllBy(
+            entity => entity.Credentials.AuthenticationTokens
+                .FirstOrDefault(t => t.Token == token) != null)
+            .Include(entity => entity.Credentials)
+            .FirstOrDefaultAsync();
 
         if (dbRecord is null)
         {

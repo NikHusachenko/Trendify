@@ -23,7 +23,7 @@ public sealed class AuthenticationController(IMediator mediator) : BaseControlle
         await SendRequest(new SignUpRequest(request.FirstName, request.LastName, request.MiddleName, request.Login, request.Password, request.WorkshopId))
             .Map(result => result.IsError ?
                 AsError(result.ErrorMessage!) :
-                AsSuccess(result.Value));
+                AsSuccess(result));
 
     [HttpGet(CurrentUserRoute)]
     public async Task<IActionResult> GetCurrentUser() =>

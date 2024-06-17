@@ -1,0 +1,133 @@
+﻿@using Trendify.Api.Database.Enums
+
+@{
+    Layout = "_Layout";
+}
+
+<div id="preloader">
+    <div class="loader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+        </svg>
+    </div>
+</div>
+
+<div class="d-flex" style="height: 100vh; justify-content: center">
+    <div style="align-items: center" class="d-flex">
+        <div class="card" style="border-radius: 10px; min-width: 700px">
+            <div class="card-header">
+                <h4>Sign up</h4>
+            </div>
+            <div class="card-body">
+                <div id="first-step-page">
+                    <input id="first-name" type="text" class="form-control" placeholder="First name" style="margin-bottom: 5px" />
+                    <input id="last-name" type="text" class="form-control" placeholder="Last name" style="margin-bottom: 5px" />
+                    <input id="middle-name" type="text" class="form-control" placeholder="Middle name" style="margin-bottom: 5px" />
+                    <select id="workshop-type" class="form-control"></select>
+                </div>
+                <div id="second-step-page" class="d-none">
+                    <input id="login" type="text" class="form-control" placeholder="Login" style="margin-bottom: 5px" />
+                    <input id="password" type="password" class="form-control" placeholder="Password" style="margin-bottom: 5px" />
+                </div>
+            </div>
+            <div class="card-footer">
+                <div id="first-step-control">
+                    <input id="next-page-button" type="button" class="btn btn-success float-right" value="Next" />
+                </div>
+                <div id="second-step-control" class="d-none">
+                    <input id="prev-page-button" type="button" class="btn btn-success float-left" value="Previous" />
+                    <input id="login-button" type="button" class="btn btn-success float-right" value="Sign in" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $.ajax({
+            url: 'https://localhost:7054/api/workshop/get/list',
+            method: 'get',
+            success: (response) => {
+                let select = document.getElementById('workshop-type')
+                response.items.forEach(item => {
+                    select.innerHTML += "<option value='" + item.id + "'>" + item.name + "</option>"
+                })
+            },
+            error: (response) => {
+                console.log(response)
+            }
+        })
+        .done(() => {
+            $('#preloader').fadeOut()
+        })
+
+        $('#next-page-button').on('click', () => {
+            $('#first-step-page').addClass('d-none')
+            $('#first-step-control').addClass('d-none')
+            $('#second-step-page').removeClass('d-none')
+            $('#second-step-control').removeClass('d-none')
+        })
+
+        $('#prev-page-button').on('click', () => {
+            $('#first-step-page').removeClass('d-none')
+            $('#first-step-control').removeClass('d-none')
+            $('#second-step-page').addClass('d-none')
+            $('#second-step-control').addClass('d-none')
+        })
+
+        $('#login-button').on('click', () => {
+            let data = {
+                firstName: $('#first-name').val(),
+                lastName: $('#last-name').val(),
+                middleName: $('#middle-name').val(),
+                workshopId: $('#workshop-type').val(),
+                login: $('#login').val(),
+                password: $('#password').val()
+            }
+
+            let jsonData = JSON.stringify(data)
+
+            $.ajax({
+                url: 'https://localhost:7054/api/authentication/sign-up',
+                method: 'post',
+                data: jsonData,
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                success: (response) => {
+                    console.log(response)
+                    localStorage.setItem('token', response.value)
+
+                    let token = localStorage.getItem('token')
+                    if (token == undefined || token == null) {
+                        
+                    }
+
+                    console.log(token)
+
+                    let item = document.getElementById('user-name')
+
+                    $.ajax({
+                        url: 'https://localhost:7054/api/authentication/current-user',
+                        method: 'get',
+                        headers: {
+                            "Authentication": "Bearer " + token
+                        },
+                        success: (response) => {
+                            console.log(response)
+                            localStorage.setItem('username', response.firstName + " " + response.lastName)
+                            location.href = "@Url.Action("Index", "Home")"
+                        },
+                        error: (response) => {
+                            console.log("Error")
+                        }
+                    })
+                },
+                error: (response) => {
+                    console.log(response)
+                    return;
+                }
+            })
+        });
+    </script>
+}

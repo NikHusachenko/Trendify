@@ -5,4 +5,6 @@ namespace Trendify.Client.Controllers;
 public class AuthenticationController : Controller
 {
     [HttpGet] public async Task<IActionResult> SignIn() => View();
+
+    [HttpGet] public async Task<IActionResult> SignUp() => View();
 }
